@@ -2,7 +2,8 @@
 import React, { useState } from "react";
 import Protected from "../../hooks/useProtected";
 import Profile from "../../components/Profile/Profile";
-import Header from "@/components/Header";
+import Header from "../../components/Header";
+
 const ProfilePage = () => {
   
   const [open, setOpen] = useState(false);
