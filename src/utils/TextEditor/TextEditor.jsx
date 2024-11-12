@@ -1,8 +1,8 @@
 "use client";
 import React, { useRef, useState } from "react";
 import { RxCross1 } from "react-icons/rx";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
+// import ReactQuill from "react-quill";
+// import "react-quill/dist/quill.snow.css";
 import { Editor } from "@tinymce/tinymce-react";
 
 const TextEditor = () => {
