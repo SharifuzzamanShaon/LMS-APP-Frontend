@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import UserAccount from "./UserProfilePageOptions/UserAccount";
 import EnrolledCourse from "./UserProfilePageOptions/EnrolledCourse";
 import ChangePassword from "./UserProfilePageOptions/ChangePassword";
-import LogoutModule from "../AuthModule/LogoutModule";
+// import LogoutModule from "../../components/Profile/LogoutModule";
 const Profile = () => {
   const [scroll, setScroll] = useState(false);
   const [active, setActive] = useState(1);
@@ -43,7 +43,7 @@ const Profile = () => {
         {active === 1 && <UserAccount user={user}/>}
         {active === 2 && <EnrolledCourse />}
         {active === 3 && <ChangePassword />}
-        {open && <LogoutModule open={open} setOpen={setOpen}/>}
+        {/* {open && <LogoutModule open={open} setOpen={setOpen}/>} */}
 
       </div>
     </div>
