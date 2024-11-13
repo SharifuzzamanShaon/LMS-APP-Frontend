@@ -26,20 +26,29 @@ const Schema = Yup.object().shape({
 });
 const SignUpModule = ({ route, setRoute }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [register, { isError, data, error, isSuccess }] = useRegisterMutation();
+  const [register, { isError, data, error, isSuccess, isLoading }] =
+    useRegisterMutation();
+  let loadingToast;
   useEffect(() => {
+    if (isLoading) {
+      loadingToast = toast.loading("Signing up...");
+    }
     if (isSuccess) {
+      toast.dismiss(loadingToast);
       const msg = data?.message || "Registration Successful";
       toast.success(msg);
-      setRoute("verify")
+      setRoute("verify");
     }
     if (error) {
+      toast.dismiss(loadingToast);
       if ("data" in error) {
         const errData = error;
         toast.error(errData.data.message);
+      } else {
+        toast.error("Something went wrong, try again");
       }
     }
-  }, [isSuccess, error]);
+  }, [isLoading, isSuccess, error]);
   const formik = useFormik({
     initialValues: { username: "", email: "", password: "" },
     validationSchema: Schema,
@@ -157,13 +166,13 @@ const SignUpModule = ({ route, setRoute }) => {
           </FormControl>
         </div>
         <div className="w-full mt-5">
-          <button type="submit" value="signup" className={`${style.button}`}>
+          <Button type="submit" variant="contained" color="primary">
             Sign-Up
-          </button>
+          </Button>
         </div>
         <div className="flex items-center justify-center">
-            <FcGoogle  size={30} className="cursor-pointer mt-2"/>
-            <FaGithub size={30} className="cursor-pointer ml-2 mt-2 text-black"/>
+          <FcGoogle size={30} className="cursor-pointer mt-2" />
+          <FaGithub size={30} className="cursor-pointer ml-2 mt-2 text-black" />
         </div>
         <p className="dark:text-white text-black">
           Already have account ?{" "}

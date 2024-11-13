@@ -13,7 +13,7 @@ import {
 import { useFormik } from "formik";
 import { BiHide, BiShow } from "react-icons/bi";
 import { useLoginMutation } from "../../../redux/features/auth/authApi";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import SocialAuthentication from "./SocialAuthentication";
 
 const Schema = Yup.object().shape({
@@ -25,19 +25,27 @@ const Schema = Yup.object().shape({
 
 const LoginModule = ({ route, setRoute, setOpen }) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [login, { isSuccess, data, error }] = useLoginMutation();
+  const [login, { isSuccess, data, error, isLoading }] = useLoginMutation();
+  let loadingToaster;
   useEffect(() => {
+    if (isLoading) {
+      loadingToaster = toast.loading("Logging in...");
+    }
     if (isSuccess) {
+      toast.dismiss(loadingToaster);
       const msg = data.message || "Login Successful";
       toast.success(msg);
       setOpen(false);
     }
     if (error) {
+      toast.dismiss(loadingToaster);
       if ("data" in error) {
         toast.error(error.data.message);
+      } else {
+        toast.error("Something went wrong, Please try again");
       }
     }
-  }, [isSuccess, error]);
+  }, [isLoading, isSuccess, error]);
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: Schema,
@@ -134,7 +142,7 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
         <Button type="submit" variant="contained" color="primary">
           Login
         </Button>
-        <SocialAuthentication setOpen={setOpen}/>
+        <SocialAuthentication setOpen={setOpen} />
         <p className="dark:text-white text-black">
           Don't have account ?{" "}
           <span
