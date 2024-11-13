@@ -44,7 +44,7 @@ const Header = ({ open, activeItem, setOpen }) => {
                 href={"/"}
                 className={`text-[25px] font-Poppins font-500 text-black dark:text-white`}
               >
-                A-A-O
+                Skill-Sage
               </Link>
             </div>
             <div className="flex items-center">
@@ -83,7 +83,7 @@ const Header = ({ open, activeItem, setOpen }) => {
                 href={"/"}
                 className={`text-[20px] pt-5 ml-5 font-Poppins font-500 text-black dark:text-white`}
               >
-                A-A-O-m
+                Skill-Sage
               </Link>
               <NavItems activeItem={activeItem} isMobile={true} />
               <div>
