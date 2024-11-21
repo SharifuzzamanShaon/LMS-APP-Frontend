@@ -15,7 +15,8 @@ import { BiHide, BiShow } from "react-icons/bi";
 import { useLoginMutation } from "../../../redux/features/auth/authApi";
 import toast, { Toaster } from "react-hot-toast";
 import SocialAuthentication from "./SocialAuthentication";
-
+import { useSelector } from "react-redux";
+import { redirect } from "next/navigation";
 const Schema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid Email")
@@ -27,6 +28,8 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [login, { isSuccess, data, error, isLoading }] = useLoginMutation();
   let loadingToaster;
+  const userInfo = useSelector((state) => state.auth);
+  console.log(userInfo);
   useEffect(() => {
     if (isLoading) {
       loadingToaster = toast.loading("Logging in...");
@@ -36,6 +39,9 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
       const msg = data.message || "Login Successful";
       toast.success(msg);
       setOpen(false);
+      if (userInfo.user.role === "admin") {
+        redirect("/admin-dashboard");
+      }
     }
     if (error) {
       toast.dismiss(loadingToaster);

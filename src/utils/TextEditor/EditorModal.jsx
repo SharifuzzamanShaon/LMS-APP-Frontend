@@ -19,7 +19,7 @@ const EditorModal = () => {
         <BsArrowsAngleExpand />
       </button>
       <Modal
-        open={true}
+        open={isOpen}
         onClose={() => setIsOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -27,7 +27,7 @@ const EditorModal = () => {
         <Box className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[450px] bg-white dark:bg-slate-900 rounded-[8px] shadow-lg p-4">
           
           <Typography sx={{ mt: 2 }}>
-            <TextEditor />
+            {/* <TextEditor /> */}
           </Typography>
         </Box>
       </Modal>

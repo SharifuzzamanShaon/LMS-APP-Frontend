@@ -25,7 +25,7 @@ export const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
-  devTools: process.env.NEXT_PUBLIC_DEV_PHASE,
+  devTools: process.env.NEXT_PUBLIC_DEV_PHASE !== "production",
 });
 
 export const persistor = persistStore(store);
@@ -38,25 +38,3 @@ const initilizeApp = async () => {
 };
 
 initilizeApp();
-/*
-export const store = configureStore({
-  reducer: {
-    [apiSlice.reducerPath]: apiSlice.reducer,
-    auth: authSlice,
-  },
-  // devTools: false,
-
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware),
-  devTools: process.env.NODE_ENV !== "production",
-});
-
-//call refreshToken fun in every page load
-const initilizeApp = async () => {
-  await store.dispatch(
-    apiSlice.endpoints.refreshToken.initiate({}, {forceRefetch: true})
-  );
-};
-
-initilizeApp();
-  */

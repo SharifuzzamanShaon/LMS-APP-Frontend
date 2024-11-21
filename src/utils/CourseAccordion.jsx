@@ -8,7 +8,10 @@ import Button from "@mui/material/Button";
 import { FormControl, FormHelperText, Input, InputLabel } from "@mui/material";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
-import { setCourseInfo, setCousreData } from "../../redux/features/admin/createCourseSlice";
+import {
+  setCourseInfo,
+  setCousreData,
+} from "../../redux/features/admin/createCourseSlice";
 
 const Schema = Yup.object().shape({
   email: Yup.string().email("Invalid Email"),
@@ -17,6 +20,7 @@ const Schema = Yup.object().shape({
 });
 
 export default function CourseAccordion() {
+const newCourseData = useSelector((state) => state.createCourseData);
   const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
@@ -33,10 +37,10 @@ export default function CourseAccordion() {
     onSubmit: async (courseData) => {
       console.log(courseData);
       dispatch(setCousreData(courseData));
+      console.log(newCourseData);
       
     },
   });
-  const courseData = useSelector((state) => state.createCourseData);
 
   const { errors, touched, values, handleChange, handleSubmit } = formik;
   return (

@@ -16,13 +16,16 @@ import { FiDelete } from "react-icons/fi";
 import GetCourseTags from "./GetCourseTags";
 import CourseDescription from "./CourseDescription/CourseDescription";
 import CourseDataModule from "./courseData/CourseDataModule";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCourseInfo } from "../../../../redux/features/admin/createCourseSlice";
+import { useCreateNewCourseMutation } from "../../../../redux/features/admin/courseApi";
 
 const Schema = Yup.object().shape({
-  email: Yup.string().email("Invalid Email"),
-  // .required("Please Enter your email"),
-  // password: Yup.string().required("Please Enter your password").min(6),
+  name: Yup.string().required("Name is required"),
+  description: Yup.string().required("Description is required"),
+  price: Yup.number().required("Price is required"),
+
+  // Add validation for other fields
 });
 
 const CreateCourseForm = () => {
@@ -38,35 +41,34 @@ const CreateCourseForm = () => {
   const handleRemoveInput = (id) => {
     setBenefits(benefits.filter((benefit) => benefit.id !== id));
   };
+  const [createNewCourse, { isSuccess, data, error, isLoading }] =
+    useCreateNewCourseMutation();
+  const newCourseData = useSelector((state) => state.createCourseData);
   const formik = useFormik({
     initialValues: {
       name: "",
-      description: "",
+      description: "this is all about the course",
       price: 0,
       estimatedPrice: 0,
       tags: [],
       level: "",
       demoUrl: "",
       benefits: [{ id: Date.now() }, { value: "" }],
-      courseData: [
-        {
-          title: "",
-          description: "",
-          videoUrl: "",
-          videoThumbnail: "",
-          videoSection: "",
-          videoLength: 0,
-          videoPlayer: "",
-          links: "",
-        },
-      ],
     },
     validationSchema: Schema,
-    onSubmit: async (courseInfo) => {
-      dispatch(setCourseInfo(courseInfo));
+    onSubmit: async (data) => {
+      try {
+        dispatch(setCourseInfo(data));
+      } catch (error) {
+        console.log(error);
+      }
     },
   });
   const { errors, touched, values, handleChange, handleSubmit } = formik;
+  const handleUploadCourse = async () => {
+    console.log(newCourseData);
+    await createNewCourse(newCourseData);
+  };
   return (
     <>
       <form>
@@ -98,9 +100,7 @@ const CreateCourseForm = () => {
           </FormControl>
 
           {/* Course Description Input */}
-          <FormControl>
-            <CourseDescription />
-          </FormControl>
+          <FormControl>{/* <CourseDescription /> */}</FormControl>
 
           {/* Price Input */}
           <FormControl fullWidth variant="outlined">
@@ -175,6 +175,14 @@ const CreateCourseForm = () => {
             </FormHelperText>
           </FormControl>
         </div>
+        <Button
+          onClick={handleSubmit}
+          variant="contained"
+          color="primary"
+          size="medium"
+        >
+          Save
+        </Button>
       </form>
       <hr></hr>
       <div className="flex flex-col items-center my-4">
@@ -219,18 +227,12 @@ const CreateCourseForm = () => {
           </Button>
         </FormControl>
       </div>
+
       <hr></hr>
       <div className="flex flex-col items-center justify-center my-3">
         <CourseDataModule></CourseDataModule>
       </div>
-      <Button
-        onClick={handleSubmit}
-        variant="contained"
-        color="primary"
-        size="medium"
-      >
-        Upload Now
-      </Button>
+      <Button onClick={handleUploadCourse}>Upload Now</Button>
     </>
   );
 };

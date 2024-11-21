@@ -8,7 +8,6 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { userLoggedOut } from "../../../redux/features/auth/authSlice";
 import toast from "react-hot-toast";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const UserProfileMenu = ({ imgSrc }) => {

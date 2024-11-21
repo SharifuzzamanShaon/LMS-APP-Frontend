@@ -14,6 +14,8 @@ import { RxCross1 } from "react-icons/rx";
 
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import Link from "next/link";
+import { IoCreateOutline } from "react-icons/io5";
+import { MdOutlineEditNote } from "react-icons/md";
 
 const AdminLayout = ({ children }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -53,12 +55,11 @@ const AdminLayout = ({ children }) => {
           </Link>
           {/* Courses with Dropdown */}
           <div className="relative">
-            <span
-              className="flex items-center justify-between mb-3 dark:text-white text-black p-2 hover:bg-gray-700 hover:text-white rounded-md transition duration-200 cursor-pointer"
-            >
+            <span className="flex items-center justify-between mb-3 dark:text-white text-black p-2 hover:bg-gray-700 hover:text-white rounded-md transition duration-200 cursor-pointer">
               <Link href={"/admin-dashboard/courses"}>
                 <div className="flex items-center">
-                  <FiBook onClick={() => setIsCoursesOpen(!isCoursesOpen)} // toggle dropdown
+                  <FiBook
+                    onClick={() => setIsCoursesOpen(!isCoursesOpen)} // toggle dropdown
                     className={`mr-2 ${isCollapsed ? "text-xl" : "text-2xl"}`}
                   />
                   {!isCollapsed && <span>Courses</span>}
@@ -66,7 +67,8 @@ const AdminLayout = ({ children }) => {
               </Link>
               {/* Dropdown Icon */}
               {!isCollapsed && (
-                <FiChevronDown onClick={() => setIsCoursesOpen(!isCoursesOpen)} // toggle dropdown
+                <FiChevronDown
+                  onClick={() => setIsCoursesOpen(!isCoursesOpen)} // toggle dropdown
                   className={`transition-transform ${
                     isCoursesOpen ? "rotate-180" : "rotate-0"
                   }`}
@@ -76,18 +78,23 @@ const AdminLayout = ({ children }) => {
 
             {/* Dropdown Menu */}
             {isCoursesOpen && (
-              <div className="ml-8  mb-4 flex flex-col dark:text-white text-black">
-                <Link href="/courses/create">
-                  <span className="mb-4 p-2 hover:bg-gray-700 hover:text-white rounded-md transition duration-200">
-                    Create Course
-                  </span>
-                </Link>
-                <Link href="/courses/manage">
-                  <span className="mb-4 p-2 hover:bg-gray-700 hover:text-white rounded-md transition duration-200">
-                    Manage Courses
-                  </span>
-                </Link>
-              </div>
+              <>
+                <div className="ml-8  mb-4 flex flex-col dark:text-white text-black">
+                  <Link href="/admin-dashboard/courses/create">
+                    <span className="mb-4 p-2 hover:bg-gray-700 hover:text-white rounded-md transition duration-200">
+                     {!isCollapsed ? "Create Course" : <IoCreateOutline />
+                     }
+                    </span>
+                  </Link>
+                </div>
+                <div className="ml-8  mb-4 flex flex-col dark:text-white text-black">
+                  <Link href="/admin-dashboard/courses/manage">
+                    <span className="mb-4 p-2 hover:bg-gray-700 hover:text-white rounded-md transition duration-200">
+                     {!isCollapsed ? "Manage Courses" : <MdOutlineEditNote />}
+                    </span>
+                  </Link>
+                </div>
+              </>
             )}
           </div>
           <Link href="/admin-dashboard/students">

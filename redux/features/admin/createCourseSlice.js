@@ -1,12 +1,10 @@
 "use client";
 import { createSlice } from "@reduxjs/toolkit";
-import { number } from "yup";
-import reducer from "../auth/authSlice";
 
 const initialState = {
   name: "",
   description: "",
-  price: 299,
+  price: 0,
   estimatedPrice: 0,
   tags: [],
   level: "",
@@ -34,19 +32,12 @@ const createCourseSlice = createSlice({
       return {
         ...state,
         ...action.payload,
-        courseData: state.courseData,
       };
     },
     setCousreData: (state, action) => {
-      console.log(action.payload);
-      return {
-        ...state, // Spread the existing state
-        courseData: [
-          ...state.courseData, // Keep existing courseData
-          action.payload, // Add the new object to the array
-        ],
-      };
+      state.courseData.push(action.payload); // Immer handles the immutable update
     },
+    
   },
 });
 
