@@ -1,9 +1,12 @@
-import React from 'react'
+import CourseComponent from "@/components/User-componets/CourseComponent";
+import React from "react";
 
 const page = () => {
   return (
-    <div>This is the course Page</div>
-  )
-}
+    <div>
+      <CourseComponent></CourseComponent>
+    </div>
+  );
+};
 
-export default page
+export default page;

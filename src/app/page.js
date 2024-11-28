@@ -12,7 +12,7 @@ const page = () => {
     : "LMS-App";
 
   const [open, setOpen] = useState(false);
-  const [activeItem, setActiveItem] = useState(0);
+  const [activeItem, setActiveItem] = useState(null);
   return (
     <div className="h-[800px]">
       <Heading

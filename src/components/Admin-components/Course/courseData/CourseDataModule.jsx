@@ -1,20 +1,24 @@
 "use client";
 import CourseAccordion from "@/utils/CourseAccordion";
 import InputNumber from "@/utils/InputNumber";
-import { Button, FormControl, Input } from "@mui/material";
+import { Button, FormControl } from "@mui/material";
 import React, { useState } from "react";
 import { FiDelete } from "react-icons/fi";
+
 const CourseDataModule = () => {
   const [totalSection, setTotalSection] = useState(0);
-  const [content, setContent] = useState([{ id: Date.now() }, { value: "" }]);
+  const [content, setContent] = useState([{ id: Date.now(), value: "" }]); // Initialize with one object
+
   const handleRemoveInput = (id) => {
     setContent(content.filter((item) => item.id !== id));
   };
+
   const handleAddInput = () => {
-    if (content.length <= totalSection) {
-        setContent([...content, { id: Date.now(), value: "" }]);
+    if (content.length < totalSection) {
+      setContent([...content, { id: Date.now(), value: "" }]);
     }
   };
+
   return (
     <>
       <InputNumber
@@ -27,7 +31,7 @@ const CourseDataModule = () => {
         </p>
         {content.map((input, index) => (
           <div key={input.id} className="flex items-center space-x-4 mb-4">
-            <CourseAccordion/>
+            <CourseAccordion />
             <button
               onClick={() => handleRemoveInput(input.id)}
               className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none"
@@ -37,7 +41,7 @@ const CourseDataModule = () => {
           </div>
         ))}
         <Button
-        variant="outlined"
+          variant="outlined"
           className="mt-2 text-black dark:text-white"
           onClick={handleAddInput}
           disabled={content.length >= totalSection}
@@ -51,6 +55,7 @@ const CourseDataModule = () => {
 };
 
 export default CourseDataModule;
+
 
 
     {/* Course Data Title Input */}

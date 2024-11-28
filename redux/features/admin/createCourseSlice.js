@@ -11,16 +11,7 @@ const initialState = {
   demoUrl: "",
   benefits: [{ id: Date.now() }, { value: "" }],
   courseData: [
-    {
-      title: "",
-      description: "",
-      videoUrl: "",
-      videoThumbnail: "",
-      videoSection: "",
-      videoLength: 0,
-      videoPlayer: "",
-      links: "",
-    },
+    
   ],
 };
 

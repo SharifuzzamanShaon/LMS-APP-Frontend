@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import FormControl from "@mui/material/FormControl";
 import * as Yup from "yup";
 import {
@@ -19,6 +19,7 @@ import CourseDataModule from "./courseData/CourseDataModule";
 import { useDispatch, useSelector } from "react-redux";
 import { setCourseInfo } from "../../../../redux/features/admin/createCourseSlice";
 import { useCreateNewCourseMutation } from "../../../../redux/features/admin/courseApi";
+import toast from "react-hot-toast";
 
 const Schema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -27,6 +28,7 @@ const Schema = Yup.object().shape({
 
   // Add validation for other fields
 });
+let loadingToaster;
 
 const CreateCourseForm = () => {
   const [benefits, setBenefits] = useState([]);
@@ -35,7 +37,7 @@ const CreateCourseForm = () => {
   const dispatch = useDispatch();
   const handleAddInput = () => {
     if (benefits.length <= 5) {
-      setBenefits([...benefits, { id: Date.now(), value: "" }]);
+      setBenefits([...benefits, { title: "" }]);
     }
   };
   const handleRemoveInput = (id) => {
@@ -43,6 +45,19 @@ const CreateCourseForm = () => {
   };
   const [createNewCourse, { isSuccess, data, error, isLoading }] =
     useCreateNewCourseMutation();
+    useEffect(()=>{
+      if(isLoading){
+        loadingToaster = toast.loading("Uploading the course")
+      }
+      if(isSuccess){
+        toast.dismiss(loadingToaster)
+        toast.success("course created successfully")
+      }
+      if(error){
+        toast.dismiss(loadingToaster)
+        toast.error(error.message)
+      }
+    },[isLoading, isSuccess, error])
   const newCourseData = useSelector((state) => state.createCourseData);
   const formik = useFormik({
     initialValues: {
@@ -53,11 +68,12 @@ const CreateCourseForm = () => {
       tags: [],
       level: "",
       demoUrl: "",
-      benefits: [{ id: Date.now() }, { value: "" }],
+      benefits: [{ id: Date.now() },{ title: "" }],
     },
     validationSchema: Schema,
     onSubmit: async (data) => {
       try {
+        data.level = level;
         dispatch(setCourseInfo(data));
       } catch (error) {
         console.log(error);
@@ -69,6 +85,7 @@ const CreateCourseForm = () => {
     console.log(newCourseData);
     await createNewCourse(newCourseData);
   };
+
   return (
     <>
       <form>
@@ -140,7 +157,7 @@ const CreateCourseForm = () => {
               id="demo-simple-select"
               value={level}
               label="This course is for _"
-              onChange={(e) => setLevel(e.target.value)}
+              onChange={(e)=>setLevel(e.target.value)}
               placeholder="Select level"
             >
               <MenuItem value={"beginner"}>Beginner</MenuItem>

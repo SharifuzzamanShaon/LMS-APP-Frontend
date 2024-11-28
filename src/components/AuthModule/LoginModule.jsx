@@ -16,7 +16,7 @@ import { useLoginMutation } from "../../../redux/features/auth/authApi";
 import toast, { Toaster } from "react-hot-toast";
 import SocialAuthentication from "./SocialAuthentication";
 import { useSelector } from "react-redux";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 const Schema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid Email")
@@ -29,19 +29,19 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
   const [login, { isSuccess, data, error, isLoading }] = useLoginMutation();
   let loadingToaster;
   const userInfo = useSelector((state) => state.auth);
+  const router = useRouter();
   console.log(userInfo);
   useEffect(() => {
     if (isLoading) {
       loadingToaster = toast.loading("Logging in...");
     }
     if (isSuccess) {
+      console.log(userInfo);
       toast.dismiss(loadingToaster);
       const msg = data.message || "Login Successful";
       toast.success(msg);
       setOpen(false);
-      if (userInfo.user.role === "admin") {
-        redirect("/admin-dashboard");
-      }
+      // Check user role and navigate
     }
     if (error) {
       toast.dismiss(loadingToaster);
@@ -51,7 +51,15 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
         toast.error("Something went wrong, Please try again");
       }
     }
-  }, [isLoading, isSuccess, error]);
+  }, [isLoading, isSuccess, error, userInfo]);
+  useEffect(() => {
+    if (isSuccess && userInfo?.user?.role === "admin") {
+      router.push("/admin-dashboard");
+      console.log("admin login");
+      
+    }
+  }, [isSuccess, userInfo]);
+
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: Schema,
