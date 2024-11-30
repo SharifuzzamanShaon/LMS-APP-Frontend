@@ -11,8 +11,8 @@ const navItemsData = [
     url: "/courses",
   },
   {
-    name: "About",
-    url: "/about",
+    name: "Chat's",
+    url: "/student-lounge",
   },
   {
     name: "Policy",

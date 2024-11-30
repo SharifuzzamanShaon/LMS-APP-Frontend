@@ -20,6 +20,8 @@ const GetUser = () => {
     { isSuccess: accessUserSuccess, error: accessUserErr, data },
   ] = useAccessingNewUserMutation();
   const { users } = useSelector((state) => state.conversation.users);
+  console.log(users);
+  
   const [keyword, setKeyword] = useState("");
   const [accessedUserName, setAccedUserName] = useState("");
   const dispatch = useDispatch()
@@ -85,7 +87,7 @@ const GetUser = () => {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 1.0 }}
                 className="list-item dark:bg-slate-800 text-black"
-                onClick={() => accessToNewUser(user._id, user.name)}
+                onClick={() => accessToNewUser(user._id, user.username)}
               >
                 <p className="con-icon">
                   <Image
@@ -96,7 +98,7 @@ const GetUser = () => {
                     className="rounded-full"
                   />
                 </p>
-                <p className="con-title dark:text-white text-black pl-4 font-bold">{user.name}</p>
+                <p className="con-title dark:text-white text-black pl-4 font-bold">{user.username}</p>
               </motion.div>
             );
           })}

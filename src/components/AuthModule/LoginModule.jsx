@@ -8,15 +8,16 @@ import {
   FormHelperText,
   Input,
   InputLabel,
-  Stack,
 } from "@mui/material";
 import { useFormik } from "formik";
 import { BiHide, BiShow } from "react-icons/bi";
 import { useLoginMutation } from "../../../redux/features/auth/authApi";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import SocialAuthentication from "./SocialAuthentication";
 import { useSelector } from "react-redux";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import SpeedLogin from "./SpeedLogin";
+
 const Schema = Yup.object().shape({
   email: Yup.string()
     .email("Invalid Email")
@@ -24,39 +25,31 @@ const Schema = Yup.object().shape({
   password: Yup.string().required("Please Enter your password").min(6),
 });
 
-const LoginModule = ({ route, setRoute, setOpen }) => {
+const LoginModule = ({ setRoute, setOpen }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [login, { isSuccess, data, error, isLoading }] = useLoginMutation();
   let loadingToaster;
   const userInfo = useSelector((state) => state.auth);
   const router = useRouter();
-  console.log(userInfo);
+
   useEffect(() => {
     if (isLoading) {
       loadingToaster = toast.loading("Logging in...");
     }
     if (isSuccess) {
-      console.log(userInfo);
       toast.dismiss(loadingToaster);
-      const msg = data.message || "Login Successful";
-      toast.success(msg);
+      toast.success(data.message || "Login Successful");
       setOpen(false);
-      // Check user role and navigate
     }
     if (error) {
       toast.dismiss(loadingToaster);
-      if ("data" in error) {
-        toast.error(error.data.message);
-      } else {
-        toast.error("Something went wrong, Please try again");
-      }
+      toast.error(error.data?.message || "Something went wrong, Please try again");
     }
   }, [isLoading, isSuccess, error, userInfo]);
+
   useEffect(() => {
     if (isSuccess && userInfo?.user?.role === "admin") {
       router.push("/admin-dashboard");
-      console.log("admin login");
-      
     }
   }, [isSuccess, userInfo]);
 
@@ -64,12 +57,13 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
     initialValues: { email: "", password: "" },
     validationSchema: Schema,
     onSubmit: async (loginInfo) => {
-      const email = loginInfo.email;
-      const password = loginInfo.password;
+      const { email, password } = loginInfo;
       await login({ email, password });
     },
   });
-  const { errors, touched, values, handleChange, handleSubmit } = formik;
+
+  const { errors, touched, values, handleChange, handleSubmit, setValues } =
+    formik;
 
   return (
     <>
@@ -88,7 +82,7 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
           </InputLabel>
           <Input
             type="email"
-            className={"dark:text-white text-black"}
+            className="dark:text-white text-black"
             id="email"
             value={values.email}
             onChange={handleChange}
@@ -108,15 +102,11 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
         </FormControl>
         <div>
           <FormControl fullWidth variant="outlined">
-            <InputLabel
-              htmlFor="password"
-              className="dark:text-white text-black"
-              place
-            >
+            <InputLabel htmlFor="password" className="dark:text-white text-black">
               Password
             </InputLabel>
             <Input
-              type={`${showPassword ? "text" : "password"}`}
+              type={showPassword ? "text" : "password"}
               className="dark:text-white text-black relative"
               id="password"
               value={values.password}
@@ -137,7 +127,6 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
                 onClick={() => setShowPassword(true)}
               />
             )}
-
             <FormHelperText
               id="password-helper-text"
               className="dark:text-white text-black"
@@ -146,24 +135,24 @@ const LoginModule = ({ route, setRoute, setOpen }) => {
                 {errors.password && touched.password ? (
                   <span className="text-red-600">{errors.password}</span>
                 ) : (
-                  <span>Mnimum 6 charecter</span>
+                  <span>Minimum 6 characters</span>
                 )}
               </div>
-              <p>Forget Password</p>
             </FormHelperText>
           </FormControl>
         </div>
         <Button type="submit" variant="contained" color="primary">
           Login
         </Button>
+        <SpeedLogin setValues={setValues}/>
         <SocialAuthentication setOpen={setOpen} />
         <p className="dark:text-white text-black">
-          Don't have account ?{" "}
+          Don't have an account?{" "}
           <span
             className="hyper cursor-pointer text-blue-800 dark:border-b-slate-100 border-b border-blue-800"
             onClick={() => setRoute("signUp")}
           >
-            {"  "} Sign-up
+            Sign-up
           </span>
         </p>
       </form>

@@ -47,8 +47,8 @@ const MyConversations = ({ setNavigate }) => {
                       currentChatPartnerId(
                         `${conversation._id}&${
                           conversation.users[0]._id === user._id
-                            ? conversation.users[1].name
-                            : conversation.users[0].name
+                            ? conversation.users[1].username
+                            : conversation.users[0].username
                         }`
                       )
                     );
@@ -69,8 +69,8 @@ const MyConversations = ({ setNavigate }) => {
                   </p>
                   <p className="text-black dark:text-white font-bold">
                     {conversation.users[0]._id === user._id
-                      ? conversation.users[1].name
-                      : conversation.users[0].name}
+                      ? conversation.users[1].username
+                      : conversation.users[0].username}
                   </p>
 
                   <p className="text-[13px] dark:text-gray-700 text-black">
@@ -93,8 +93,8 @@ const MyConversations = ({ setNavigate }) => {
                     currentChatPartnerId(
                       `${conversation._id}&${
                         conversation.users[0]._id === user._id
-                          ? conversation.users[1].name
-                          : conversation.users[0].name
+                          ? conversation.users[1].username
+                          : conversation.users[0].username
                       }`
                     )
                   );
@@ -120,8 +120,8 @@ const MyConversations = ({ setNavigate }) => {
                 </p>
                 <p className="text-black dark:text-white font-bold">
                   {conversation.users[0]._id === user._id
-                    ? conversation.users[1].name
-                    : conversation.users[0].name}
+                    ? conversation.users[1].username
+                    : conversation.users[0].username}
                 </p>
 
                 <p className="text-[13px] dark:text-gray-700 text-black">
