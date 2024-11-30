@@ -32,6 +32,8 @@ const ChatArea = () => {
     socket.emit("setup", user);
     socket.on("connection", () => setSocketConnected(true));
   }, []);
+  console.log(displayMsg);
+  
   useEffect(() => {
     fetchMessages();
   }, [msgBoxRefresh,chatId]);

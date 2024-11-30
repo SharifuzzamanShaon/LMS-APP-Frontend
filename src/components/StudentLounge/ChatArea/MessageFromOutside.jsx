@@ -6,7 +6,8 @@ const MessageFromOutside = ({props}) => {
     <div className={"other-message-container"}>
       <div className={"conversation-container"}>
         <p className={"con-icon" }>
-            {props.sender.name[0]}
+            {/* {props?.sender.username[0]} */}
+            {Array.isArray(props?.sender.username) ? (props?.sender.username[0])  : (props?.sender.username)}
         </p>
         <div className={"other-text-content flex flex-col"}>
           {/* <p className={"con-title"}>{props.sender.name}</p> */}
