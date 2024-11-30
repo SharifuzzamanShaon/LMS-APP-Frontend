@@ -19,11 +19,12 @@ const navItemsData = [
     url: "/policy",
   },
 ];
+
 const NavItems = ({ activeItem, isMobile }) => {
   return (
     <>
-        {/* Navigation for larger screens */}
-        <div className=" md:hidden sm:hidden items-center space-x-8 pl-10  py-4">
+      {/* Navigation for larger screens */}
+        <div className="hidden lg:block space-x-8 pl-10 py-4">
           {navItemsData?.map((i, index) => (
             <Link href={i.url} key={index} passHref>
               <span
@@ -38,26 +39,22 @@ const NavItems = ({ activeItem, isMobile }) => {
             </Link>
           ))}
         </div>
-    
-
+      {/* Navigation for smaller screens */}
       {isMobile && (
-        <div className="lg:hidden md:hidden mt-5">
-          {navItemsData &&
-            navItemsData.map((i, index) => {
-              return (
-                <Link href="/" passHref>
-                  <span
-                    className={`${
-                      activeItem === index
-                        ? "dark:text-[#37a39a] text-[crimson]"
-                        : "dark:text-white text-black"
-                    } block py-5 text-[18px] px-6 font-Poppins font-[400]`}
-                  >
-                    {i.name} dfd
-                  </span>
-                </Link>
-              );
-            })}
+        <div className="lg:hidden mt-5">
+          {navItemsData.map((i, index) => (
+            <Link href={i.url} key={index} passHref>
+              <span
+                className={`${
+                  activeItem === index
+                    ? "dark:text-[#37a39a] text-[crimson]"
+                    : "dark:text-white text-black"
+                } block py-5 text-[18px] px-6 font-Poppins font-[400]`}
+              >
+                {i.name}
+              </span>
+            </Link>
+          ))}
         </div>
       )}
     </>

@@ -16,6 +16,23 @@ export const userCourseApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    fetchCourseDetails: builder.mutation({
+      query: (courseId) => ({
+        url: `/course/get-course/${courseId}`,
+        method: "GET",
+      }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const response = await queryFulfilled;
+          console.log(response);
+          
+          return response;
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    }),
   }),
 });
-export const { useFetchAllCourseMutation } = userCourseApi;
+export const { useFetchAllCourseMutation, useFetchCourseDetailsMutation } =
+  userCourseApi;

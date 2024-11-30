@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useFetchAllCourseMutation } from "../../../redux/features/course/courseApi";
+import Link from "next/link";
 
 const CourseCard = ({ course }) => {
   return (
@@ -9,9 +10,11 @@ const CourseCard = ({ course }) => {
       <p className="text-sm text-gray-700 dark:text-gray-400 mb-4">
         {course.description || "No description available."}
       </p>
+      <Link href={`/courses/${course._id}`}>
       <button className="mt-auto bg-blue-500 dark:bg-blue-700 text-white py-2 px-4 rounded-lg hover:bg-blue-600 dark:hover:bg-blue-800 transition">
-        Learn More
+        Viwe Details
       </button>
+      </Link>
     </div>
   );
 };
@@ -27,7 +30,9 @@ const CourseComponent = () => {
       setLoading(true);
       try {
         const result = await fetchAllCourse()
-        setCourses(result.data?.allCourses);
+        console.log(result?.data?.allCourses)
+        
+        setCourses(result?.data?.allCourses);
       } catch (error) {
         setErrorMessage(error?.data?.message || "Failed to fetch courses.");
       } finally {

@@ -47,6 +47,8 @@ const Header = ({ open, activeItem, setOpen }) => {
                 Skill-Sage
               </Link>
             </div>
+
+
             <div className="flex items-center">
               <NavItems activeItem={activeItem} />
               <ThemeSwitcher />
@@ -86,6 +88,7 @@ const Header = ({ open, activeItem, setOpen }) => {
                 Skill-Sage
               </Link>
               <NavItems activeItem={activeItem} isMobile={true} />
+
               <div>
                 {user ? (
                   <Image

@@ -5,7 +5,7 @@ const page = () => {
   return (
     <div>
       <CourseComponent></CourseComponent>
-    </div>
+    </div> 
   );
 };
 
