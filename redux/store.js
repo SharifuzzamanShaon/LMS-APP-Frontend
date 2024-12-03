@@ -11,7 +11,7 @@ import createCourseSlice from "./features/admin/createCourseSlice";
 const persistConfig = {
   key: "auth",
   storage,
-  // whitelist: ["token", "user"], // Only persist accessToken and user
+  whitelist: ["token", "user"], // Only persist accessToken and user
 };
 const persistedAuthReducer = persistReducer(persistConfig, authSlice);
 
