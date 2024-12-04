@@ -18,8 +18,11 @@ const MyConversations = ({ setNavigate }) => {
   const [getAllConversation, { isSuccess, error }] =
     useGetAllConversationMutation();
   useEffect(() => {
+    console.log(user);
     getAllConversation();
   }, [refresh]);
+  const token = localStorage.getItem("persist:auth");
+  console.log(token);
   return (
     <div className="bg-white dark:bg-slate-800 dark:text-white rounded-[20px] p-1.5 flex-1 shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,rgba(0,0,0,0.3)_0px_3px_7px_-3px] m-2.5">
       {allConversations &&

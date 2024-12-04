@@ -40,6 +40,8 @@ const LoginModule = ({ setRoute, setOpen }) => {
       toast.dismiss(loadingToaster);
       toast.success(data.message || "Login Successful");
       setOpen(false);
+      
+      
     }
     if (error) {
       toast.dismiss(loadingToaster);
@@ -64,6 +66,7 @@ const LoginModule = ({ setRoute, setOpen }) => {
 
   const { errors, touched, values, handleChange, handleSubmit, setValues } =
     formik;
+
 
   return (
     <>

@@ -34,11 +34,20 @@ const conversationApi = apiSlice.injectEndpoints({
       }),
     }),
     getAllConversation: builder.mutation({
-      query: (data) => ({
-        url: `conversation/chat`,
-        method: "GET",
-        credentials: "include",
-      }),
+      query: (data) => {
+        // Parse the token from localStorage
+        const persistAuth = localStorage.getItem("persist:auth");
+        const token = persistAuth ? JSON.parse(persistAuth)?.accessToken : null;
+    
+        return {
+          url: `conversation/chat`,
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+          },
+          credentials: "include",
+        };
+      },
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const res = await queryFulfilled;
@@ -52,6 +61,7 @@ const conversationApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    
     getAllChatData: builder.mutation({
       query: (data) => ({
         url: `conversation/message/${data.chatId}`,
