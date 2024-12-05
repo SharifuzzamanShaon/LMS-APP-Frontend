@@ -41,7 +41,7 @@ const NavItems = ({ activeItem, isMobile }) => {
         </div>
       {/* Navigation for smaller screens */}
       {isMobile && (
-        <div className="lg:hidden mt-5">
+        <div className="lg:hidden mt-5 pl-4">
           {navItemsData.map((i, index) => (
             <Link href={i.url} key={index} passHref>
               <span
@@ -49,7 +49,7 @@ const NavItems = ({ activeItem, isMobile }) => {
                   activeItem === index
                     ? "dark:text-[#37a39a] text-[crimson]"
                     : "dark:text-white text-black"
-                } block py-5 text-[18px] px-6 font-Poppins font-[400]`}
+                } block py-5 text-[18px] px-6  font-Poppins font-[400]`}
               >
                 {i.name}
               </span>
