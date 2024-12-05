@@ -26,7 +26,7 @@ const ChatArea = () => {
     (state) => state.conversation.allConversations
   );
   const [chatId, name] = currentChatPartnerId.split("&");
-  const endpoint = process.env.NEXT_PUBLIC_SOCKET_ENDPOINT;
+  const endpoint = process.env.NEXT_PUBLIC_SOCKET_ENDPOINT
   useEffect(() => {
     socket = io(endpoint);
     socket.emit("setup", user);
