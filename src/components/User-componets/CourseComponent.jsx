@@ -6,7 +6,7 @@ import Link from "next/link";
 const CourseCard = ({ course }) => {
   return (
     <div className="bg-white dark:bg-gray-800 dark:text-gray-200 shadow-md rounded-lg p-4 transition duration-300">
-      <h2 className="text-xl font-bold mb-2">{course.title}</h2>
+      <h2 className="text-xl font-bold mb-2">{course.name}</h2>
       <p className="text-sm text-gray-700 dark:text-gray-400 mb-4">
         {course.description || "No description available."}
       </p>
@@ -42,7 +42,22 @@ const CourseComponent = () => {
 
     fetchCourses();
   }, [fetchAllCourse]);
+  const handleFileChange = (event) => {
+    event.preventDefault();
+    const file = event.target.files[0];
+    console.log(file);
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setAvatarBase64(reader.result);
+      };
+      reader.onloadend = () => {
+        setPreview(reader.result); // Set the preview state to the Data URL
+      };
 
+      reader.readAsDataURL(file);
+    }
+  };
   return (
     <div className="p-4 bg-gray-100 dark:bg-gray-900 min-h-screen">
       <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">
