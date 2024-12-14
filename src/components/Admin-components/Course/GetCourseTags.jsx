@@ -15,7 +15,7 @@ const names = [
   "Backend",
 ];
 
-export default function GetCourseTags({ tags, setTags }) {
+export default function GetCourseTags({formik, values}) {
   const [selectedNames, setSelectedNames] = useState([]);
 
   return (
@@ -32,8 +32,8 @@ export default function GetCourseTags({ tags, setTags }) {
           options={names}
           getOptionLabel={(option) => option}
           disableCloseOnSelect
-          value={tags}
-          onChange={(event, newValue) => setTags(newValue)}
+          value={values.stags}
+          onChange={(event, newValue) => formik.setFieldValue("tags", newValue)}
           renderInput={(params) => (
             <TextField
               className="dark:text-white text-black "
