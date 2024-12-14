@@ -66,16 +66,16 @@ const ChatArea = () => {
     socket.on("message received", (newMsgReceived) => {
       setDisplayMsg([...displayMsg, newMsgReceived]);
     });
-  });
+  });  
   return (
     <div className="chatArea-container">
       <div className="chatArea-header  dark:bg-slate-800 dark:text-white">
         <p className="con-icon">
           <Image
             src={
-              allConversations[0].users[0]._id === user._id
-                ? allConversations[0].users[1].avatar
-                : allConversations[0].users[0].avatar
+              allConversations[0]?.users[0]?._id === user?._id
+              ? allConversations[0]?.users[1]?.avatar || '/default-avatar.png'
+              : allConversations[0]?.users[0]?.avatar || '/default-avatar.png'
             }
             alt=""
             width={30}
