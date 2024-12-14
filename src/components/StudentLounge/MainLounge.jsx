@@ -25,7 +25,9 @@ const MainLounge = () => {
             className="outline-none border-none ml-2 text-sm md:text-lg text-gray-600 w-full bg-gray-100 dark:bg-slate-900 dark:text-white rounded-md shadow-md p-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
         </div>
+        <div className="hidden lg:block">
         <MyConversations setNavigate={setNavigate} />
+        </div>
       </div>
 
       <div
