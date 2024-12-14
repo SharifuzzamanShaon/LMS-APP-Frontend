@@ -4,6 +4,7 @@ import Heading from "../utils/Heading";
 import HeroSection from "../components/HeroSection";
 import { useSelector } from "react-redux";
 import Header from "@/components/Header";
+import CourseComponent from "@/components/User-componets/CourseComponent";
 
 const page = () => {
   const { user } = useSelector((state) => state.auth);
@@ -25,6 +26,7 @@ const page = () => {
       ></Heading>
       <Header open={open} activeItem={activeItem} setOpen={setOpen}></Header>
       <HeroSection />
+      <CourseComponent/>
     </div>
   );
 };
