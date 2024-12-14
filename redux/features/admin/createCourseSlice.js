@@ -9,7 +9,7 @@ const initialState = {
   tags: [],
   level: "",
   demoUrl: "",
-  benefits: [{ id: Date.now() }, { value: "" }],
+  benefits: [],
   courseData: [
     
   ],
