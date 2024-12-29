@@ -56,7 +56,7 @@ const CreateCourseForm = () => {
   const dispatch = useDispatch();
   const handleAddInput = () => {
     if (benefits.length <= 5) {
-      setBenefits([...benefits, { title: "" }]);
+      setBenefits([...benefits, { id: Date.now(), title: "" }]);
     }
   };
   const handleRemoveInput = (id) => {
@@ -83,7 +83,7 @@ const CreateCourseForm = () => {
     initialValues: {
       name: "",
       thumbnail: "",
-      description: "this is all about the course",
+      description: "",
       price: 0,
       estimatedPrice: 0,
       tags: [],
@@ -94,6 +94,7 @@ const CreateCourseForm = () => {
     validationSchema: Schema,
     onSubmit: async (data, { setSubmitting, setErrors }) => {
       try {
+        formik.setFieldValue("benefits", benefits);
         console.log("Form data submitted:", data);
         dispatch(setCourseInfo(data)); // Replace with your actual dispatch call
       } catch (error) {
@@ -114,11 +115,12 @@ const CreateCourseForm = () => {
   const { errors, touched, values, handleChange, handleSubmit } = formik;
 
   const handleUploadCourse = async () => {
-    formik.setFieldValue("benefits", benefits);
     console.log("Course Data:", formik.values);
     try {
       // Proceed with course creation logic
-      // await createNewCourse(formik.values);
+
+      console.log(newCourseData);
+      await createNewCourse(newCourseData);
       toast.success("Course uploaded successfully!");
     } catch (error) {
       console.error("Error uploading course:", error);
@@ -129,6 +131,16 @@ const CreateCourseForm = () => {
     <>
       <FormControl>
         <CourseThumbnail formik={formik} values={values} />
+        <FormHelperText
+              id="name-helper-text"
+              className="dark:text-white text-black"
+            >
+              {errors.thumbnail && touched.thumbnail ? (
+                <span className="text-red-600">{errors.thumbnail}</span>
+              ) : (
+                <span></span>
+              )}
+            </FormHelperText>
       </FormControl>
       <form onSubmit={handleSubmit}>
         <div className="space-y-4 p-4 max-w-4xl mx-auto font-Poppins grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -158,7 +170,9 @@ const CreateCourseForm = () => {
           </FormControl>
 
           {/* Course Description Input */}
-          <FormControl>{/* <CourseDescription /> */}</FormControl>
+          <FormControl>
+              <CourseDescription formik={formik} values={values}/>
+          </FormControl>
           {/* Price Input */}
           <FormControl fullWidth variant="outlined">
             <InputLabel htmlFor="price" className="dark:text-white text-black">
@@ -230,15 +244,20 @@ const CreateCourseForm = () => {
               )}
             </FormHelperText>
           </FormControl>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            size="medium"
+          >
+            Save
+          </Button>
         </div>
-        <Button type="submit" variant="contained" color="primary" size="medium">
-          Save
-        </Button>
       </form>
-      <hr></hr>
+
       <div className="flex flex-col items-center my-4">
         {/* Benefits Input */}
-        <FormControl>
+        {/* <FormControl>
           <p className="mb-4 text-lg text-gray-700 dark:text-white">
             Benefits of this course
           </p>
@@ -276,7 +295,7 @@ const CreateCourseForm = () => {
           >
             Add Benefit
           </Button>
-        </FormControl>
+        </FormControl> */}
       </div>
 
       <hr></hr>
