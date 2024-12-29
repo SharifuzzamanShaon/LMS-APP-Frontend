@@ -1,29 +1,40 @@
 "use client";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setCourseInfo } from "../../../../../redux/features/admin/createCourseSlice";
+import React, { useState } from "react";
 import EditorModal from "@/utils/TextEditor/EditorModal";
+import TextEditor from "@/utils/TextEditor/TextEditor";
 
-const CourseDescription = () => {
-  const courseData = useSelector((state) => state.createCourseData);
-  const dispatch = useDispatch();
-  const setDescription = (e) => {
-    dispatch(setCourseInfo({ description: e.target.value }));
-  };
+const CourseDescription = ({formik, values}) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <>
-      <div class="relative">
-        <textarea
-          placeholder="Description"
-          value={courseData.description}
-          className="bg-transparent  text-black dark:text-white border-blue-800 p-2 pr-8 resize-none  w-full"
-          onChange={setDescription}
-        ></textarea>
-        <span className="absolute top-2 right-2 text-gray-500 cursor-pointer hover:text-gray-700">
-          <EditorModal />
-        </span>
-      </div>
-    </>
+    <div className="relative">
+      {/* Trigger Button */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        Add Description
+      </button>
+
+      {/* Modal */}
+      {isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white dark:bg-gray-800 p-8 rounded shadow-lg w-[90%] max-w-4xl h-[90%] overflow-y-auto">
+            <div className="text-gray-700 dark:text-gray-300 mb-6">
+              <EditorModal formik={formik}/>
+            </div>
+            <div className="flex justify-end">
+              <button
+                onClick={() => setIsOpen(false)}
+                className="px-6 py-3 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
