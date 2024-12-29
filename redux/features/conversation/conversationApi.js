@@ -34,16 +34,14 @@ const conversationApi = apiSlice.injectEndpoints({
       }),
     }),
     getAllConversation: builder.mutation({
-      query: (data) => {
+      query: (token) => {
         // Parse the token from localStorage
-        const persistAuth = localStorage.getItem("persist:auth");
-        const token = persistAuth ? JSON.parse(persistAuth)?.accessToken : null;
-    
+        
         return {
           url: `conversation/chat`,
           method: "GET",
           headers: {
-            Authorization: `Bearer ${token}`, // Add the token to the Authorization header
+           Authorization: `Bearer ${token}`, // Add the token to the Authorization header
           },
           credentials: "include",
         };
