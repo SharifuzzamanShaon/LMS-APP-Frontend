@@ -12,8 +12,8 @@ const CourseCard = ({ course }) => {
           <Image
             src={course.thumbnail.url}
             alt={`${course.name} Thumbnail`}
-            width={320} // Set width as needed
-            height={180} // Set height as needed
+            width={320} 
+            height={180}
            className="object-cover rounded-lg"
           />
         </div>
