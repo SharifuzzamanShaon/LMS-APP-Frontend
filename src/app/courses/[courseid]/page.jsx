@@ -3,6 +3,7 @@ import { useParams } from "next/navigation";
 import { useFetchCourseDetailsMutation } from "../../../../redux/features/course/courseApi";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import CourseDetails from "@/components/User-componets/CourseDetails";
 
 const CoursePage = () => {
   const { courseid } = useParams();
@@ -13,8 +14,11 @@ const CoursePage = () => {
     const getCourseDetails = async () => {
       try {
         const result = await fetchCourseDetails(courseid);
-        // setCourseDetails(result.data?.course);
+        
         console.log("course details:  ", result);
+        setCourseDetails(result?.data?.isCacheExist ? result?.data?.isCacheExist : result?.data?.course);
+        console.log(courseDetails);
+        
       } catch (error) {
         toast.error("something went wrong");
       }
@@ -23,7 +27,7 @@ const CoursePage = () => {
   }, [fetchCourseDetails]);
   return (
     <div>
-      <h1>Course ID: {courseid}</h1>
+      <CourseDetails course={courseDetails}/>
     </div>
   );
 };
