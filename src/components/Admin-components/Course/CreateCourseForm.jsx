@@ -26,25 +26,23 @@ const Schema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
   thumbnail: Yup.string().required("Thumbnail is required"),
   description: Yup.string().required("Description is required"),
-  price: Yup.number()
-    .min(0, "Price must be a positive number")
-    .required("Price is required"),
+  price: Yup.number().required("Price is required"),
   estimatedPrice: Yup.number().min(
     0,
     "Estimated price must be a positive number"
   ),
   tags: Yup.array().of(Yup.string()).required("At least one tag is required"),
   level: Yup.string().required("Course level is required"),
-  demoUrl: Yup.string().url("Must be a valid URL"),
-  benefits: Yup.array()
-    .of(
-      Yup.object().shape({
-        title: Yup.string()
-          .min(5, "Benefit must be at least 5 characters")
-          .required("Benefit is required"),
-      })
-    )
-    .required("At least one benefit is required"),
+
+  // benefits: Yup.array()
+  //   .of(
+  //     Yup.object().shape({
+  //       title: Yup.string()
+  //         .min(5, "Benefit must be at least 5 characters")
+  //         .required("Benefit is required"),
+  //     })
+  //   )
+  //   .required("At least one benefit is required"),
 });
 
 let loadingToaster;
@@ -53,6 +51,8 @@ const CreateCourseForm = () => {
   const [benefits, setBenefits] = useState([]);
   const [tags, setTags] = useState([]);
   const [level, setLevel] = useState("");
+  const [isSetCourseDetails, setCourseDetails] = useState(false);
+  const [isSetCourseData, setCourseData] = useState(false);
   const dispatch = useDispatch();
   const handleAddInput = () => {
     if (benefits.length <= 5) {
@@ -75,7 +75,7 @@ const CreateCourseForm = () => {
     if (error) {
       toast.dismiss(loadingToaster);
       console.log(error);
-      toast.error(error.message);
+      toast.error(error);
     }
   }, [isLoading, isSuccess, error]);
   const newCourseData = useSelector((state) => state.createCourseData);
@@ -83,8 +83,8 @@ const CreateCourseForm = () => {
     initialValues: {
       name: "",
       thumbnail: "",
-      description: "",
-      price: 0,
+      description: "course description will be here",
+      price: Yup.number,
       estimatedPrice: 0,
       tags: [],
       level: "",
@@ -96,51 +96,49 @@ const CreateCourseForm = () => {
       try {
         formik.setFieldValue("benefits", benefits);
         console.log("Form data submitted:", data);
-        dispatch(setCourseInfo(data)); // Replace with your actual dispatch call
+        dispatch(setCourseInfo(data));
+        setCourseDetails(true);
       } catch (error) {
         console.error("Error during submission:", error);
-
-        // Handle error from the server, assuming error.response contains validation feedback
-        if (error.response?.data?.errors) {
-          const formErrors = error.response.data.errors;
-          setErrors(formErrors); // `formErrors` should map to form field names
-        } else {
-          alert("An unexpected error occurred. Please try again.");
-        }
-      } finally {
-        setSubmitting(false); // Reset submission state
       }
     },
   });
   const { errors, touched, values, handleChange, handleSubmit } = formik;
 
+  const [isFormValid, setIsFormValid] = useState(true);
   const handleUploadCourse = async () => {
-    console.log("Course Data:", formik.values);
     try {
-      // Proceed with course creation logic
-
-      console.log(newCourseData);
+      if (!isSetCourseDetails || !isSetCourseData) {
+        console.log("please fill-up the course information ");
+        return;
+      }
       await createNewCourse(newCourseData);
       toast.success("Course uploaded successfully!");
     } catch (error) {
       console.error("Error uploading course:", error);
-      toast.error("An error occurred while uploading the course.");
+      const errorMessage =
+        error?.data?.message || // Check if the error has a `message` property
+        error?.response?.data?.message || // Check for Axios-style error
+        "An unexpected error occurred while uploading the course.";
+      toast.error(errorMessage);
     }
   };
+  console.log(isSetCourseDetails);
+  console.log(isSetCourseData);
   return (
     <>
       <FormControl>
         <CourseThumbnail formik={formik} values={values} />
         <FormHelperText
-              id="name-helper-text"
-              className="dark:text-white text-black"
-            >
-              {errors.thumbnail && touched.thumbnail ? (
-                <span className="text-red-600">{errors.thumbnail}</span>
-              ) : (
-                <span></span>
-              )}
-            </FormHelperText>
+          id="name-helper-text"
+          className="dark:text-white text-black"
+        >
+          {errors.thumbnail && touched.thumbnail ? (
+            <span className="text-red-600">{errors.thumbnail}</span>
+          ) : (
+            <span></span>
+          )}
+        </FormHelperText>
       </FormControl>
       <form onSubmit={handleSubmit}>
         <div className="space-y-4 p-4 max-w-4xl mx-auto font-Poppins grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -171,7 +169,7 @@ const CreateCourseForm = () => {
 
           {/* Course Description Input */}
           <FormControl>
-              <CourseDescription formik={formik} values={values}/>
+            <CourseDescription formik={formik} values={values} />
           </FormControl>
           {/* Price Input */}
           <FormControl fullWidth variant="outlined">
@@ -197,7 +195,6 @@ const CreateCourseForm = () => {
               )}
             </FormHelperText>
           </FormControl>
-
           {/* Tags Input */}
           <FormControl>
             <GetCourseTags formik={formik} values={values}></GetCourseTags>
@@ -248,7 +245,7 @@ const CreateCourseForm = () => {
             type="submit"
             variant="contained"
             color="primary"
-            size="medium"
+            size="small"
           >
             Save
           </Button>
@@ -300,9 +297,18 @@ const CreateCourseForm = () => {
 
       <hr></hr>
       <div className="flex flex-col items-center justify-center my-3">
-        <CourseDataModule></CourseDataModule>
+        <CourseDataModule setCourseData={setCourseData}></CourseDataModule>
       </div>
-      <Button onClick={handleUploadCourse}>Upload Now</Button>
+      <Button
+        onClick={handleUploadCourse}
+        type="submit"
+        variant="contained"
+        color="primary"
+        size="medium"
+        disabled={!isSetCourseDetails || !isSetCourseData}
+      >
+        Upload Now
+      </Button>
     </>
   );
 };
