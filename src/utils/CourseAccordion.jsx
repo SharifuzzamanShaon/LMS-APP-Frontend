@@ -14,12 +14,32 @@ import {
 } from "../../redux/features/admin/createCourseSlice";
 
 const Schema = Yup.object().shape({
-  email: Yup.string().email("Invalid Email"),
-  // .required("Please Enter your email"),
-  // password: Yup.string().required("Please Enter your password").min(6),
+  title: Yup.string()
+    .required("Title is required")
+    .max(100, "Title cannot exceed 100 characters"),
+  description: Yup.string()
+    .required("Description is required")
+    .min(10, "Description must be at least 10 characters")
+    .max(500, "Description cannot exceed 500 characters"),
+  videoUrl: Yup.string()
+    .url("Invalid URL format")
+    .required("Video URL is required"),
+  videoThumbnail: Yup.string()
+    .url("Invalid thumbnail URL format")
+    .required("Video thumbnail is required"),
+  videoSection: Yup.string()
+    .required("Video section is required"),
+  videoLength: Yup.number()
+    .required("Video length is required")
+    .positive("Video length must be positive")
+    .integer("Video length must be an integer"),
+  videoPlayer: Yup.string()
+    .required("Video player information is required"),
+  links: Yup.string()
+    .url("Invalid link format")
+    .nullable(), // Allows links to be empty
 });
-
-export default function CourseAccordion() {
+export default function CourseAccordion({setCourseData}) {
 const newCourseData = useSelector((state) => state.createCourseData);
   const dispatch = useDispatch();
   const formik = useFormik({
@@ -38,7 +58,7 @@ const newCourseData = useSelector((state) => state.createCourseData);
       console.log(courseData);
       dispatch(setCousreData(courseData));
       console.log(newCourseData);
-      
+      setCourseData(true)
     },
   });
 
