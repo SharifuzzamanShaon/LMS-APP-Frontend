@@ -1,10 +1,8 @@
 import Image from "next/image";
-import React from "react";
-import UserProfileMenu from "./ProfileShortcut/UserProfileMenu";
-
+import SeachCourse from "./User-componets/SeachCourse";
 const HeroSection = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900">
+    <div className="min-500 flex items-center justify-center bg-white dark:bg-gray-900">
       <div className="container mx-auto flex flex-col lg:flex-row items-center">
         {/* Left Side: Image */}
         <div className="w-full lg:w-1/2 p-6">
@@ -26,6 +24,7 @@ const HeroSection = () => {
             Explore our extensive range of courses and discover the one that
             suits you best.
           </p>
+          <SeachCourse/>
         </div>
       </div>
     </div>
