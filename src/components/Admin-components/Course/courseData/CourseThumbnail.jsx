@@ -26,8 +26,8 @@ const CourseThumbnail = ({ formik, values }) => {
     formik.setFieldValue("thumbnail", thumbnail);
   };
   return (
-    <div>
-      <div className="relative w-40 h-40 overflow-hidden mb-4">
+    <div className="pace-y-2 max-w-4xl mx-auto font-Poppins grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="relative w-30 h-30 overflow-hidden mb-1">
         {preview ? (
           <Image
             src={preview}
@@ -58,7 +58,7 @@ const CourseThumbnail = ({ formik, values }) => {
           <div className="relative">
             <label
               htmlFor="avatar-upload"
-              className="cursor-pointer inline-block py-2 px-4 bg-blue-600 text-white rounded-md shadow-sm hover:bg-blue-700 transition-colors"
+              className="cursor-pointer inline-block py-1 px-2 bg-blue-500 text-white rounded-md shadow-sm hover:bg-blue-600 transition-colors"
             >
               Choose Image
             </label>
