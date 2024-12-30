@@ -32,7 +32,21 @@ export const userCourseApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    seachCourse: builder.mutation({
+      query: (keyword)=>({
+        url:`/course/search?keyword=${keyword}`,
+        method:"GET"
+      }),
+      async onQueryStarted(arg, {queryFulfilled, dispatch}){
+        try {
+          const response = await queryFulfilled
+          return response
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    })
   }),
 });
-export const { useFetchAllCourseMutation, useFetchCourseDetailsMutation } =
+export const { useFetchAllCourseMutation, useFetchCourseDetailsMutation, useSeachCourseMutation } =
   userCourseApi;
