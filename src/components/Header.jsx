@@ -8,6 +8,7 @@ import CustomModal from "../utils/CustomModal";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import UserProfileMenu from "./ProfileShortcut/UserProfileMenu";
+import { Button } from "@mui/material";
 
 const Header = ({ open, activeItem, setOpen }) => {
   const [active, setActive] = useState(false);
@@ -23,6 +24,8 @@ const Header = ({ open, activeItem, setOpen }) => {
       }
     });
   }
+  console.log(user);
+  
   const handleClose = (e) => {
     if (e.target.id === "screen") {
       setOpenSidebar(false);
@@ -50,6 +53,9 @@ const Header = ({ open, activeItem, setOpen }) => {
 
 
             <div className="flex items-center">
+              {
+                user.role === "admin" ? <Link href={"/admin-dashboard"}><Button>Dashboard</Button></Link> : null
+              }
               <NavItems activeItem={activeItem} />
               <ThemeSwitcher />
               <div className="block lg:hidden">
