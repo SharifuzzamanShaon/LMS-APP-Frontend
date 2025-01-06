@@ -7,7 +7,13 @@ import { useActivationMutation } from "../../../redux/features/auth/authApi";
 import { useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
-const VerificationModule = ({ route, setRoute }) => {
+const VerificationModule = ({
+  route,
+  setRoute,
+  setIsVerified,
+  setOpenLogin,
+  setOpenVerificationModal
+}) => {
   const [varifyNumber, setVarifyNumber] = useState({
     0: "",
     1: "",
@@ -18,24 +24,30 @@ const VerificationModule = ({ route, setRoute }) => {
   const [activation, { isError, isSuccess, data, error }] =
     useActivationMutation();
   const { token } = useSelector((state) => state.auth);
+
   useEffect(() => {
     if (isSuccess) {
       toast.success("Account activation success");
-      setRoute("login");
+
+      // Handle based on props
+      if (setRoute) {
+        setRoute("login");
+      } else {
+        setIsVerified(true);
+        setOpenLogin(true)
+        setOpenVerificationModal(false)
+      }
     }
+
     if (error) {
       if ("data" in error) {
         const errData = error;
-        toast.error(errData.data.message);
+        toast.error(errData?.data.message);
       }
     }
-  }, [isSuccess, error]);
-  const inputRefs = [
-    useRef < HTMLInputElement > null,
-    useRef < HTMLInputElement > null,
-    useRef < HTMLInputElement > null,
-    useRef < HTMLInputElement > null,
-  ];
+  }, [isSuccess, error, setRoute, setIsVerified, setOpenLogin, setOpenVerificationModal]);
+
+  const inputRefs = Array.from({ length: 4 }, () => useRef(null));
 
   const handleInput = (index, value) => {
     setVarifyNumber({ ...varifyNumber, [index]: value });
@@ -45,11 +57,13 @@ const VerificationModule = ({ route, setRoute }) => {
       inputRefs[index + 1].current?.focus();
     }
   };
+
   const handleSubmit = async () => {
     const activationCode = Object.values(varifyNumber).join("");
     const activationToken = token;
     await activation({ activationToken, activationCode });
   };
+
   return (
     <>
       <h2 className={style.title}>Verification Code</h2>
@@ -58,19 +72,15 @@ const VerificationModule = ({ route, setRoute }) => {
           <VscWorkspaceTrusted size={40} />
         </div>
         <div className="w-[70%] 1100px:w-[70%] m-auto flex items-center justify-around mb-4">
-          {Object.keys(varifyNumber).map((key, index) => {
-            return (
-              <input
-                type="text"
-                key={key}
-                className="w-[55px] h-[55px] bg-transparent border-[3px] rounded-[10px] text-black items-center dark:text-white justify-center text-[16px] font-poppins outline-none text-center"
-                placeholder=""
-                // ref={inputRefs[index]}
-                maxLength={1}
-                onChange={(e) => handleInput(index, e.target.value)} // Correctly passed 'e'
-              />
-            );
-          })}
+          {Object.keys(varifyNumber).map((key, index) => (
+            <input
+              type="text"
+              key={key}
+              className="w-[55px] h-[55px] bg-transparent border-[3px] rounded-[10px] text-black items-center dark:text-white justify-center text-[16px] font-poppins outline-none text-center"
+              maxLength={1}
+              onChange={(e) => handleInput(index, e.target.value)}
+            />
+          ))}
         </div>
         <Button variant="outlined" type="submit" onClick={handleSubmit}>
           Verify
