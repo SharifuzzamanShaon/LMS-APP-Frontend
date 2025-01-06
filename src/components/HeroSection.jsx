@@ -17,14 +17,14 @@ const HeroSection = () => {
 
         {/* Right Side: Text */}
         <div className="w-full lg:w-1/2 p-6 text-center lg:text-left">
-          <h1 className="text-4xl md:text-5xl font-Josefin text-black dark:text-white">
+          <h1 className="text-2sm md:text-3xl font-Josefin text-black dark:text-white">
             Find Your Best Course
           </h1>
-          <p className="mt-4 text-lg font-Poppins text-gray-700 dark:text-gray-300">
+          <p className="mt-4 text-sm font-Poppins text-gray-700 dark:text-gray-300">
             Explore our extensive range of courses and discover the one that
             suits you best.
           </p>
-          <SeachCourse/>
+          <SeachCourse />
         </div>
       </div>
     </div>
