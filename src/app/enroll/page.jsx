@@ -6,13 +6,16 @@ import StepLabel from "@mui/material/StepLabel";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Registration from "@/components/Enrollment/Registration";
+import TermsandConditions from "@/components/Enrollment/TermsandConditions";
+import toast from "react-hot-toast";
 
 const steps = ["Register Course", "Terms and Conditions", "Payment"];
 
 export default function EnrollmentSteps() {
   const [activeStep, setActiveStep] = React.useState(0);
+  const [isVerified, setIsVerified] = React.useState(false);
   const [skipped, setSkipped] = React.useState(new Set());
-
+  
   const isStepOptional = (step) => step === 1;
 
   const isStepSkipped = (step) => skipped.has(step);
@@ -27,7 +30,8 @@ export default function EnrollmentSteps() {
     setSkipped(newSkipped);
   };
 
-  const handleBack = () => setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  const handleBack = () =>
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
 
   const handleSkip = () => {
     if (!isStepOptional(activeStep)) {
@@ -46,15 +50,24 @@ export default function EnrollmentSteps() {
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <Registration />;
+        return (
+          <Registration isVerified={isVerified} setIsVerified={setIsVerified} />
+        );
       case 1:
-        return "Content for Step 2: Create an ad group. Set up your target audience.";
+        return <TermsandConditions />;
       case 2:
         return "Content for Step 3: Create an ad. Design your ad creatives.";
       default:
         return "Unknown step";
     }
   };
+  console.log(isVerified);
+  React.useEffect(() => {
+    if (isVerified) {
+      toast.success("Account varified");
+      handleNext()
+    }
+  }, [isVerified]);
 
   return (
     <div className="px-4 sm:px-8 lg:px-10 py-4 max-w-4xl mx-auto">
@@ -103,11 +116,7 @@ export default function EnrollmentSteps() {
                 Back
               </Button>
               {isStepOptional(activeStep) && (
-                <Button
-                  color="inherit"
-                  onClick={handleSkip}
-                  className="mr-2"
-                >
+                <Button color="inherit" onClick={handleSkip} className="mr-2">
                   Skip
                 </Button>
               )}
