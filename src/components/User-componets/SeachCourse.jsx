@@ -8,7 +8,7 @@ import { useSeachCourseMutation } from "../../../redux/features/course/courseApi
 const SeachCourse = () => {
   const [keyword, setKeyword] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [searchResult, setSearchResult] = useState("")
+  const [searchResult, setSearchResult] = useState("");
   const [searchCourse] = useSeachCourseMutation();
 
   const handleKeywordChange = (e) => {
@@ -17,21 +17,19 @@ const SeachCourse = () => {
   };
   useEffect(() => {
     if (keyword.trim() === "") {
-        setIsModalOpen(false);
-        return; // Don't trigger handleSearchCourse when keyword is empty
-      }    
+      setIsModalOpen(false);
+      return; // Don't trigger handleSearchCourse when keyword is empty
+    }
     let timeOut = setTimeout(() => {
       handleSearchCourse();
       setIsModalOpen(true);
-
     }, 2000);
     return () => clearTimeout(timeOut);
   }, [keyword]);
   const handleSearchCourse = async () => {
     const result = await searchCourse(keyword);
-    setSearchResult(result?.data)
+    setSearchResult(result?.data);
     console.log(result);
-    
   };
   return (
     <>
