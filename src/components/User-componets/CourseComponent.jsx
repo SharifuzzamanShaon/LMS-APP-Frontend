@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useFetchAllCourseMutation } from "../../../redux/features/course/courseApi";
 import Link from "next/link";
 import Image from "next/image";
+import FilterCourseByCategoryBtn from "../Filter-components/FilterCourseByCategoryBtn";
 
 const CourseCard = ({ course }) => {
   return (
@@ -65,10 +66,11 @@ const CourseComponent = () => {
 
   return (
     <div className="p-4 bg-gray-100 dark:bg-gray-900 min-h-screen">
-      <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-6">
+      <h1 className="text-3sm font-bold text-gray-600 dark:text-gray-100 mb-6">
         Courses
       </h1>
-      {loading && <p>Loading...</p>}
+      {loading && <p className="dark:text-white text-black">Loading...</p>}
+      <FilterCourseByCategoryBtn/>
       {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       {courses?.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
