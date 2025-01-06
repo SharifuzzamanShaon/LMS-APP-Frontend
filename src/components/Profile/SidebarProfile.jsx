@@ -28,7 +28,7 @@ const SidebarProfile = ({ user, active, setActive, open, setOpen }) => {
           height={30}
           className="rounded-full"
         ></Image>
-        <h5 className="ml-4">My Account</h5>
+        <h5 className="ml-4">{user.username}</h5>
       </div>
       <div
         className={`w-full flex items-center px-3 py-4 cursor-pointer text-slate-800 dark:text-white
