@@ -16,19 +16,17 @@ const names = [
 ];
 
 export default function GetCourseTags({formik, values}) {
-  const [selectedNames, setSelectedNames] = useState([]);
-
   return (
     <>
       <FormControl
         fullWidth
         variant="outlined"
-        className="dark:text-white text-black "
+        className="dark:text-white"
       >
-        <Autocomplete
+        <Autocomplete 
           sx={{ m: 1, width: 500 }}
           multiple
-          className="dark:text-white text-black"
+          className="dark:text-white"
           options={names}
           getOptionLabel={(option) => option}
           disableCloseOnSelect
@@ -36,7 +34,7 @@ export default function GetCourseTags({formik, values}) {
           onChange={(event, newValue) => formik.setFieldValue("tags", newValue)}
           renderInput={(params) => (
             <TextField
-              className="dark:text-white text-black "
+              className="dark:text-white"
               {...params}
               variant="outlined"
               label="Course tags"
@@ -56,15 +54,7 @@ export default function GetCourseTags({formik, values}) {
             </MenuItem>
           )}
         />
-        {/* Display selected names
-        <div>
-          <h4>Selected Names:</h4>
-          {selectedNames.length > 0 ? (
-            selectedNames.map((name) => <p key={name}>{name}</p>)
-          ) : (
-            <p>No names selected</p>
-          )}
-        </div> */}
+
       </FormControl>
     </>
   );
