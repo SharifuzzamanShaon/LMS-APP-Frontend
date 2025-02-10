@@ -35,8 +35,6 @@ const conversationApi = apiSlice.injectEndpoints({
     }),
     getAllConversation: builder.mutation({
       query: (token) => {
-        // Parse the token from localStorage
-        
         return {
           url: `conversation/chat`,
           method: "GET",
