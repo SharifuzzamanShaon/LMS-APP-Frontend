@@ -8,12 +8,14 @@ import Typography from "@mui/material/Typography";
 import Registration from "@/components/Enrollment/Registration";
 import TermsandConditions from "@/components/Enrollment/TermsandConditions";
 import toast from "react-hot-toast";
+import CheckOut from "@/components/Enrollment/CheckOut";
 
 const steps = ["Register Course", "Terms and Conditions", "Payment"];
 
 export default function EnrollmentSteps() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [isVerified, setIsVerified] = React.useState(false);
+  const [isAccepted, setAccepted] = React.useState(false)
   const [skipped, setSkipped] = React.useState(new Set());
   
   const isStepOptional = (step) => step === 1;
@@ -54,24 +56,28 @@ export default function EnrollmentSteps() {
           <Registration isVerified={isVerified} setIsVerified={setIsVerified} />
         );
       case 1:
-        return <TermsandConditions />;
+        return <TermsandConditions setAccepted={setAccepted}/>;
       case 2:
-        return "Content for Step 3: Create an ad. Design your ad creatives.";
+        return <CheckOut/>
       default:
         return "Unknown step";
     }
   };
-  console.log(isVerified);
   React.useEffect(() => {
     if (isVerified) {
       toast.success("Account varified");
       handleNext()
     }
   }, [isVerified]);
+React.useEffect(()=>{
+  if(isAccepted){
+    handleNext()
+  }
+},[isAccepted])
 
   return (
-    <div className="px-4 sm:px-8 lg:px-10 py-4 max-w-4xl mx-auto">
-      <div className="bg-white shadow-md rounded-lg p-6">
+    <div className="px-4 sm:px-8 lg:px-10 py-4 max-w-4xl mx-auto ">
+      <div className="bg-white shadow-md rounded-lg p-6 ">
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {
             const stepProps = {};
@@ -81,9 +87,7 @@ export default function EnrollmentSteps() {
                 <Typography variant="caption">Optional</Typography>
               );
             }
-            if (isStepSkipped(index)) {
-              stepProps.completed = false;
-            }
+      
             return (
               <Step key={label} {...stepProps}>
                 <StepLabel {...labelProps}>{label}</StepLabel>
@@ -115,17 +119,14 @@ export default function EnrollmentSteps() {
               >
                 Back
               </Button>
-              {isStepOptional(activeStep) && (
-                <Button color="inherit" onClick={handleSkip} className="mr-2">
-                  Skip
-                </Button>
-              )}
+
               <Button
+              disabled={isAccepted}
                 variant="contained"
                 onClick={handleNext}
                 className="bg-blue-500 hover:bg-blue-700 text-white"
               >
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                {activeStep === steps.length > 0 ? "" : "Next"}
               </Button>
             </div>
           </div>
