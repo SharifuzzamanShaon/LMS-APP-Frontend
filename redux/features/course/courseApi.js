@@ -1,5 +1,6 @@
 "use client";
 import { apiSlice } from "../api/apiSlice";
+import { setDetails } from "./courseSlice";
 export const userCourseApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     fetchAllCourse: builder.mutation({
@@ -25,7 +26,7 @@ export const userCourseApi = apiSlice.injectEndpoints({
         try {
           const response = await queryFulfilled;
           console.log(response);
-          
+          dispatch(setDetails(response?.data))
           return response;
         } catch (error) {
           console.log(error);
