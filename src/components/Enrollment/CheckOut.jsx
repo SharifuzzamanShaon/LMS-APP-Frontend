@@ -26,7 +26,7 @@ const CheckOut = () => {
       "pk_test_51Qq6EcK5LodKUJLls5S3SYKD0SrqDhoFLyRvbSPVK5B0OcKRqPi3jgvwszyGHqxdOstmrXTYv3KYauckaGgcE3pY00SnSXJRih"
     );
     const response =await axios.post(
-      `${process.env.NEXT_PUBLIC_SERVER_URI}/api/v1/payment/makePayment`,
+      `${process.env.NEXT_PUBLIC_SERVER_URI}/payment/makePayment`,
       data,
       config
     );
