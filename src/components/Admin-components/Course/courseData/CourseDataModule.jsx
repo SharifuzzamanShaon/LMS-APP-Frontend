@@ -1,12 +1,11 @@
 "use client";
 import CourseAccordion from "@/utils/CourseAccordion";
-import InputNumber from "@/utils/InputNumber";
 import { Button, FormControl } from "@mui/material";
 import React, { useState } from "react";
 import { FiDelete } from "react-icons/fi";
 
 const CourseDataModule = ({setCourseData}) => {
-  const [totalSection, setTotalSection] = useState(0);
+  const [totalSection, setTotalSection] = useState(40);
   const [content, setContent] = useState([{ id: Date.now(), value: "" }]); // Initialize with one object
 
   const handleRemoveInput = (id) => {
@@ -21,10 +20,6 @@ const CourseDataModule = ({setCourseData}) => {
 
   return (
     <>
-      <InputNumber
-        setTotalSection={setTotalSection}
-        totalSection={totalSection}
-      />
       <FormControl>
         <p className="mb-4 text-lg text-gray-700 dark:text-white">
           Course-content by section
@@ -57,64 +52,3 @@ const CourseDataModule = ({setCourseData}) => {
 export default CourseDataModule;
 
 
-
-    {/* Course Data Title Input */}
-          {/* <FormControl fullWidth variant="outlined">
-            <InputLabel
-              htmlFor="courseDataTitle"
-              className="dark:text-white text-black"
-            >
-              Course Data Title
-            </InputLabel>
-            <Input
-              type="text"
-              className="dark:text-white text-black"
-              id="courseDataTitle"
-              value={values.courseData.title}
-              onChange={handleChange}
-              aria-describedby="courseDataTitle-helper-text"
-              // required
-            />
-            <FormHelperText
-              id="courseDataTitle-helper-text"
-              className="dark:text-white text-black"
-            >
-              {errors.courseData?.title && touched.courseData?.title ? (
-                <span className="text-red-600">{errors.courseData.title}</span>
-              ) : (
-                <span>Enter the title for the course data</span>
-              )}
-            </FormHelperText>
-          </FormControl> */}
-
-          {/* Course Data Description Input */}
-          {/* <FormControl fullWidth variant="outlined">
-            <InputLabel
-              htmlFor="courseDataDescription"
-              className="dark:text-white text-black"
-            >
-              Course Data Description
-            </InputLabel>
-            <Input
-              type="text"
-              className="dark:text-white text-black"
-              id="courseDataDescription"
-              value={values.courseData.description}
-              onChange={handleChange}
-              aria-describedby="courseDataDescription-helper-text"
-              // required
-            />
-            <FormHelperText
-              id="courseDataDescription-helper-text"
-              className="dark:text-white text-black"
-            >
-              {errors.courseData?.description &&
-              touched.courseData?.description ? (
-                <span className="text-red-600">
-                  {errors.courseData.description}
-                </span>
-              ) : (
-                <span>Provide a brief description for the course data</span>
-              )}
-            </FormHelperText>
-          </FormControl> */}

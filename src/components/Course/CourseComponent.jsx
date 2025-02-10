@@ -65,7 +65,7 @@ const CourseComponent = () => {
   }, [fetchAllCourse]);
 
   return (
-    <div className="p-4 bg-gray-100 dark:bg-gray-900 min-h-screen">
+    <div className="p-4 bg-gray-100 dark:bg-gray-900 ">
       <h1 className="text-3sm font-bold text-gray-600 dark:text-gray-100 mb-6">
         Courses
       </h1>

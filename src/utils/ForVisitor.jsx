@@ -16,8 +16,6 @@ const ForVisitor = () => {
 
   return (
     <div>
-      <h1>Welcome, Visitor!</h1>
-      <p>For test all features properly, please sign in first.</p>
 
       {/* Toast Container */}
       <Toaster position="top-center" />

@@ -8,6 +8,7 @@ import persistReducer from "redux-persist/es/persistReducer";
 import conversationSlice from "./features/conversation/conversationSlice";
 import refreshSidebarSlice from "./features/conversation/refreshSidebarSlice";
 import createCourseSlice from "./features/admin/createCourseSlice";
+import courseDetailsSlice from "./features/course/courseSlice";
 const persistConfig = {
   key: "auth",
   storage,
@@ -22,10 +23,11 @@ export const store = configureStore({
     conversation: conversationSlice,
     refreshSideBar: refreshSidebarSlice,
     createCourseData: createCourseSlice,
+    courseDetails: courseDetailsSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
-  devTools: process.env.NEXT_PUBLIC_DEV_PHASE !== "production",
+ // devTools: process.env.NEXT_PUBLIC_DEV_PHASE !== "production",
 });
 
 export const persistor = persistStore(store);

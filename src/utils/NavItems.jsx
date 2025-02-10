@@ -15,11 +15,7 @@ const navItemsData = [
     name: "Chat's",
     url: "/student-lounge",
     requiresAuth: true,
-  },
-  {
-    name: "Policy",
-    url: "/policy",
-  },
+  }
 ];
 
 const NavItems = ({ activeItem, isMobile }) => {
