@@ -3,7 +3,7 @@ import { useParams } from "next/navigation";
 import { useFetchCourseDetailsMutation } from "../../../../redux/features/course/courseApi";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import CourseDetails from "@/components/User-componets/CourseDetails";
+import CourseDetails from "@/components/Course/CourseDetails";
 
 const CoursePage = () => {
   const { courseid } = useParams();
