@@ -27,22 +27,18 @@ const Schema = Yup.object().shape({
   thumbnail: Yup.string().required("Thumbnail is required"),
   description: Yup.string().required("Description is required"),
   price: Yup.number().required("Price is required"),
-  estimatedPrice: Yup.number().min(
-    0,
-    "Estimated price must be a positive number"
-  ),
   tags: Yup.array().of(Yup.string()).required("At least one tag is required"),
   level: Yup.string().required("Course level is required"),
 
-  // benefits: Yup.array()
-  //   .of(
-  //     Yup.object().shape({
-  //       title: Yup.string()
-  //         .min(5, "Benefit must be at least 5 characters")
-  //         .required("Benefit is required"),
-  //     })
-  //   )
-  //   .required("At least one benefit is required"),
+  benefits: Yup.array()
+    .of(
+      Yup.object().shape({
+        title: Yup.string()
+          .min(5, "Benefit must be at least 5 characters")
+          .required("Benefit is required"),
+      })
+    )
+    .required("At least one benefit is required"),
 });
 
 let loadingToaster;
@@ -85,7 +81,6 @@ const CreateCourseForm = () => {
       thumbnail: "",
       description: "course description will be here",
       price: Yup.number,
-      estimatedPrice: 0,
       tags: [],
       level: "",
       demoUrl: "",
@@ -112,6 +107,8 @@ const CreateCourseForm = () => {
         console.log("please fill-up the course information ");
         return;
       }
+      console.log(newCourseData);
+
       await createNewCourse(newCourseData);
       toast.success("Course uploaded successfully!");
     } catch (error) {
@@ -141,7 +138,7 @@ const CreateCourseForm = () => {
         </FormHelperText>
       </FormControl>
       <form onSubmit={handleSubmit}>
-        <div className="space-y-4 p-4 max-w-4xl mx-auto font-Poppins grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-4 p-2 max-w-4md mx-auto font-Poppins ">
           {/* Course Name Input */}
           <FormControl fullWidth variant="outlined">
             <InputLabel htmlFor="name" className="dark:text-white text-black">
@@ -149,7 +146,7 @@ const CreateCourseForm = () => {
             </InputLabel>
             <Input
               type="text"
-              className="dark:text-white text-black"
+              className="dark:text-white text-black w-8/12"
               id="name"
               value={values.name}
               onChange={handleChange}
@@ -173,12 +170,12 @@ const CreateCourseForm = () => {
           </FormControl>
           {/* Price Input */}
           <FormControl fullWidth variant="outlined">
-            <InputLabel htmlFor="price" className="dark:text-white text-black">
+            <InputLabel htmlFor="price" className="dark:text-white text-black ">
               Price
             </InputLabel>
             <Input
               type="number"
-              className="dark:text-white text-black"
+              className="dark:text-white text-black w-2/12"
               id="price"
               value={values.price}
               onChange={handleChange}
@@ -200,102 +197,77 @@ const CreateCourseForm = () => {
             <GetCourseTags formik={formik} values={values}></GetCourseTags>
           </FormControl>
           {/* Level Input */}
-          <FormControl fullWidth variant="outlined">
-            <InputLabel id="demo-simple-select-label">Level</InputLabel>
+          <FormControl fullWidth variant="outlined" className="dark:text-white">
+            <InputLabel id="level-select-label" className="dark:text-white">
+              Level
+            </InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={level}
-              label="This course is for _"
+              className="dark:text-white text-black w-4/12"
+              labelId="level-select-label"
+              id="level-select"
+              value={formik.values.level} // Bind value to formik state
               onChange={(e) => formik.setFieldValue("level", e.target.value)}
-              placeholder="Select level"
+              label="This course is for _"
             >
-              <MenuItem value={"beginner"}>Beginner</MenuItem>
-              <MenuItem value={"intermediate"}>Intermediate</MenuItem>
-              <MenuItem value={"advance"}>Advance</MenuItem>
+              <MenuItem value="beginner">Beginner</MenuItem>
+              <MenuItem value="intermediate">Intermediate</MenuItem>
+              <MenuItem value="advance">Advance</MenuItem>
             </Select>
           </FormControl>
-
-          {/* Demo URL Input */}
-          <FormControl fullWidth variant="outlined">
-            <InputLabel
-              htmlFor="demoUrl"
-              className="dark:text-white text-black mb-4"
-            >
-              Demo URL
-            </InputLabel>
-            <Input
-              type="url"
-              className="dark:text-white text-black"
-              id="demoUrl"
-              value={values.demoUrl}
-              onChange={handleChange}
-              aria-describedby="demoUrl-helper-text"
-              // required
-            />
-            <FormHelperText id="demoUrl" className="dark:text-white text-black">
-              {errors.demoUrl && touched.demoUrl ? (
-                <span className="text-red-600">{errors.demoUrl}</span>
-              ) : (
-                <span>Provide a URL for course demo</span>
-              )}
-            </FormHelperText>
-          </FormControl>
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            size="small"
-          >
-            Save
-          </Button>
         </div>
+        <Button
+          className="text-black dark:text-white"
+          type="submit"
+          variant="contained"
+          color="primary"
+          size="small"
+        >
+          Save
+        </Button>
       </form>
-
-      <div className="flex flex-col items-center my-4">
+      <div className="flex flex-col place-content-between my-4">
         {/* Benefits Input */}
-        {/* <FormControl>
-          <p className="mb-4 text-lg text-gray-700 dark:text-white">
-            Benefits of this course
-          </p>
-          {benefits.map((input, index) => (
-            <div key={input.id} className="flex items-center space-x-4 mb-4">
-              <Input
-                key={index}
-                type="text"
-                className="dark:text-white text-black w-full  shadow-sm focus:ring  p-2"
-                value={input.value}
-                minLength={5}
-                maxLength={20}
-                id="benefits"
-                placeholder="Enter at least 20 characters"
-                onChange={(e) => {
-                  const newBenefits = [...benefits];
-                  newBenefits[index].value = e.target.value;
-                  setBenefits(newBenefits);
-                }}
-              />
-              <button
-                onClick={() => handleRemoveInput(input.id)}
-                className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none"
-              >
-                <FiDelete />
-              </button>
-            </div>
-          ))}
-          <Button
-            className="mt-2 text-black dark:text-white"
-            onClick={handleAddInput}
-            variant="contained"
-            disabled={benefits.length >= 5}
-            size="sm"
+        <p className="mb-4 text-lg text-gray-700 dark:text-white">
+          Benefits of this course
+        </p>
+        {benefits.map((input, index) => (
+          <div
+            key={input.id}
+            className="flex flex-col md:flex-row items-center space-x-0 md:space-x-4 mb-4"
           >
-            Add Benefit
-          </Button>
-        </FormControl> */}
+            <Input
+              key={index}
+              type="text"
+              className="dark:text-white w-8/12 text-black max-w-full md:max-w-4xl p-4 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-300 placeholder-gray-500 dark:placeholder-gray-300 bg-white dark:bg-slate-800"
+              value={input.value}
+              minLength={5}
+              maxLength={20}
+              id="benefits"
+              placeholder="Enter at least 5 characters"
+              onChange={(e) => {
+                const newBenefits = [...benefits];
+                newBenefits[index].value = e.target.value;
+                setBenefits(newBenefits);
+              }}
+            />
+            <button
+              onClick={() => handleRemoveInput(input.id)}
+              className="mt-2 md:mt-0 p-2 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none"
+            >
+              <FiDelete />
+            </button>
+          </div>
+        ))}
       </div>
-
-      <hr></hr>
+      <Button
+        className="mt-4 text-black dark:text-white mb-4"
+        onClick={handleAddInput}
+        variant="contained"
+        disabled={benefits.length >= 5}
+        size="small"
+      >
+        Add Benefit
+      </Button>
       <div className="flex flex-col items-center justify-center my-3">
         <CourseDataModule setCourseData={setCourseData}></CourseDataModule>
       </div>
