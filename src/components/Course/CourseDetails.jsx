@@ -1,6 +1,6 @@
 import React from "react";
 import CourseDescription from "./CourseDetails/CourseDescription";
-import CourseEnrollmentSidebar from "./CourseDetails/COurseEnrollmentSidebar";
+import CourseEnrollmentSidebar from "./CourseDetails/CourseEnrollmentSidebar";
 
 const CourseDetails = ({ course }) => {
   return (
