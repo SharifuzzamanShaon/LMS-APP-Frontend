@@ -26,7 +26,7 @@ const NavItems = ({ activeItem, isMobile }) => {
   return (
     <>
       {/* Navigation for larger screens */}
-      <div className="hidden lg:block space-x-8 pl-10 py-4">
+      <div className="hidden lg:block space-x-8 pl-10 p-4 ">
         {filteredNavItems?.map((i, index) => (
           <Link href={i.url} key={index} passHref>
             <span
