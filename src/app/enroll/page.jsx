@@ -77,14 +77,14 @@ React.useEffect(()=>{
 
   return (
     <div className="px-4 sm:px-8 lg:px-10 py-4 max-w-4xl mx-auto ">
-      <div className="bg-white shadow-md rounded-lg p-6 ">
+      <div className="dark:bg-gray-800 bg-white shadow-md rounded-lg p-6 dark:text-white">
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {
             const stepProps = {};
             const labelProps = {};
             if (isStepOptional(index)) {
               labelProps.optional = (
-                <Typography variant="caption">Optional</Typography>
+                <Typography variant="caption dark:text-white">Optional</Typography>
               );
             }
       
@@ -121,7 +121,7 @@ React.useEffect(()=>{
               </Button>
 
               <Button
-              disabled={isAccepted}
+              disabled={isAccepted && isVerified}
                 variant="contained"
                 onClick={handleNext}
                 className="bg-blue-500 hover:bg-blue-700 text-white"
