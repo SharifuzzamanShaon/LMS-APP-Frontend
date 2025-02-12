@@ -11,7 +11,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import { useLoginMutation, useRegisterMutation } from "../../../redux/features/auth/authApi";
+import {
+  useLoginMutation,
+  useRegisterMutation,
+} from "../../../redux/features/auth/authApi";
 import toast from "react-hot-toast";
 import VerifyModalForEnroll from "@/utils/VerifyModalForEnroll";
 
@@ -63,20 +66,20 @@ const Registration = ({ isVerified, setIsVerified }) => {
   }, [isLoading, isSuccess, error]);
 
   useEffect(() => {
-    handleLogin()
+    handleLogin();
   }, [isVerified]);
   const handleLogin = async () => {
-    console.log(values)   
-    const {email, password} = values 
-    await login({email, password});
+    console.log(values);
+    const { email, password } = values;
+    await login({ email, password });
   };
   const formik = useFormik({
     initialValues: {
-      fullName: "yilex84643@chansd.com",
-      email: user?.email ? user.email : "yilex84643@chansd.com",
-      username: user?.username ? user.username : "yilex84643@chansd.com",
-      phoneNumber: "12345678999",
-      password: user ? "*******" : "12341234",
+      fullName: "",
+      email: user?.email ? user.email : "",
+      username: user?.username ? user.username : "",
+      phoneNumber: "",
+      password: user ? "********" : "",
     },
     validationSchema: Schema,
     onSubmit: async (values, { setSubmitting }) => {
@@ -103,7 +106,7 @@ const Registration = ({ isVerified, setIsVerified }) => {
   }, [isVerified, resetForm]);
 
   return (
-    <div className="dark:bg-gray-900 min-[600v] flex items-center justify-center p-4">
+    <div className=" min-[600v] flex items-center justify-center p-4">
       <Box
         component="form"
         onSubmit={handleSubmit}
@@ -112,13 +115,13 @@ const Registration = ({ isVerified, setIsVerified }) => {
         <Typography
           variant="h5"
           align="center"
-          className="text-gray-900 dark:text-gray-100 mb-6"
+          className="text-gray-900 dark:text-white "
         >
           Registration
         </Typography>
 
         {/* Two Column Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 my-8">
           {/* Full Name */}
           <div>
             <FormControl fullWidth variant="outlined" className="mb-4">
@@ -130,15 +133,13 @@ const Registration = ({ isVerified, setIsVerified }) => {
                 name="fullName"
                 value={values.fullName}
                 onChange={handleChange}
-                className="dark:text-gray-100"
+                className="dark:text-white"
               />
               <FormHelperText>
                 {errors.fullName && touched.fullName ? (
                   <span className="text-red-500">{errors.fullName}</span>
                 ) : (
-                  <span className="dark:text-gray-400">
-                    Enter your full name
-                  </span>
+                  <span className="dark:text-white">Enter your full name</span>
                 )}
               </FormHelperText>
             </FormControl>
@@ -152,7 +153,7 @@ const Registration = ({ isVerified, setIsVerified }) => {
               variant="outlined"
               className="mb-4"
             >
-              <InputLabel htmlFor="email" className="dark:text-gray-400">
+              <InputLabel htmlFor="email" className="dark:text-white">
                 Email
               </InputLabel>
               <Input
@@ -161,13 +162,13 @@ const Registration = ({ isVerified, setIsVerified }) => {
                 type="email"
                 value={values.email}
                 onChange={handleChange}
-                className="dark:text-gray-100"
+                className="dark:text-white"
               />
               <FormHelperText>
                 {errors.email && touched.email ? (
                   <span className="text-red-500">{errors.email}</span>
                 ) : (
-                  <span className="dark:text-gray-400">
+                  <span className="dark:text-white">
                     Enter a valid email address
                   </span>
                 )}
@@ -182,7 +183,10 @@ const Registration = ({ isVerified, setIsVerified }) => {
               variant="outlined"
               className="mb-4"
             >
-              <InputLabel htmlFor="username" className="dark:text-gray-400">
+              <InputLabel
+                htmlFor="username"
+                className="dark:text-white text-black"
+              >
                 username
               </InputLabel>
               <Input
@@ -191,13 +195,13 @@ const Registration = ({ isVerified, setIsVerified }) => {
                 type="text"
                 value={values.username}
                 onChange={handleChange}
-                className="dark:text-gray-100"
+                className="dark:text-white text-black"
               />
               <FormHelperText>
                 {errors.username && touched.username ? (
                   <span className="text-red-500">{errors.username}</span>
                 ) : (
-                  <span className="dark:text-gray-400">Enter a username</span>
+                  <span className="dark:text-white">Enter a username</span>
                 )}
               </FormHelperText>
             </FormControl>
@@ -205,7 +209,7 @@ const Registration = ({ isVerified, setIsVerified }) => {
           {/* Phone Number */}
           <div>
             <FormControl fullWidth variant="outlined" className="mb-4">
-              <InputLabel htmlFor="phoneNumber" className="dark:text-gray-400">
+              <InputLabel htmlFor="phoneNumber" className="dark:text-white">
                 Phone Number
               </InputLabel>
               <Input
@@ -214,13 +218,13 @@ const Registration = ({ isVerified, setIsVerified }) => {
                 type="text"
                 value={values.phoneNumber}
                 onChange={handleChange}
-                className="dark:text-gray-100"
+                className="dark:text-white"
               />
               <FormHelperText>
                 {errors.phoneNumber && touched.phoneNumber ? (
                   <span className="text-red-500">{errors.phoneNumber}</span>
                 ) : (
-                  <span className="dark:text-gray-400">
+                  <span className="dark:text-white">
                     Enter your phone number
                   </span>
                 )}
@@ -236,7 +240,7 @@ const Registration = ({ isVerified, setIsVerified }) => {
               variant="outlined"
               className="mb-4"
             >
-              <InputLabel htmlFor="password" className="dark:text-gray-400">
+              <InputLabel htmlFor="password" className="dark:text-white">
                 Password
               </InputLabel>
               <Input
@@ -245,13 +249,13 @@ const Registration = ({ isVerified, setIsVerified }) => {
                 type="password"
                 value={values.password}
                 onChange={handleChange}
-                className="dark:text-gray-100"
+                className="dark:text-white"
               />
               <FormHelperText>
                 {errors.password && touched.password ? (
                   <span className="text-red-500">{errors.password}</span>
                 ) : (
-                  <span className="dark:text-gray-400">
+                  <span className="dark:text-white">
                     Enter a strong password
                   </span>
                 )}
