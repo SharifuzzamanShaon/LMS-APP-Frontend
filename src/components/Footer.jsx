@@ -8,7 +8,7 @@ const Footer = () => {
           <div className="max-w-screen-xl mx-auto flex flex-wrap justify-between items-center">
             {/* Left Side - Logo & Name */}
             <div className="flex items-center space-x-3 w-full sm:w-auto justify-center sm:justify-start mb-4 sm:mb-0">
-              <img src="/logo.svg" alt="SkillSage Logo" className="w-10 h-10" />
+              
               <p className="text-xl font-semibold text-white">SkillSage</p>
             </div>
 
