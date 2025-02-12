@@ -42,7 +42,7 @@ const UserProfileMenu = ({ imgSrc }) => {
   // }, [router.pathname]); // Depend on pathname, so it runs whenever the path changes
 
   return (
-    <div>
+    <div className="dark:bg-slate-900">
       <Button
         id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
@@ -58,7 +58,7 @@ const UserProfileMenu = ({ imgSrc }) => {
           className="rounded-full"
         />
       </Button>
-      <div className="dark:bg-slate-900 bg-white">
+      <div className="dark:bg-slate-900 ">
         <Menu
           id="basic-menu"
           anchorEl={anchorEl}
