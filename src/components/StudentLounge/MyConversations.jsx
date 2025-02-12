@@ -32,15 +32,15 @@ const MyConversations = ({ setNavigate }) => {
         return (
           <div
             key={index}
-            className="flex items-center gap-3 p-3 rounded-lg cursor-pointer transition hover:bg-gray-200 dark:hover:bg-slate-600"
+            className="flex items-center gap-3 p-3 rounded-lg cursor-pointer transition hover:bg-gray-200 dark:hover:bg-slate-600 border-b border-gray-200 dark:border-gray-700"
             onClick={() => {
               setNavigate("chat-area");
               dispatch(
                 currentChatPartnerId(
                   `${conversation._id}&${
                     conversation.users[0]._id === user._id
-                      ? conversation.users[1].username
-                      : conversation.users[0].username
+                      ? conversation.users[1].username.split('@')[0]
+                      : conversation.users[0].username.split('@')[0]
                   }`
                 )
               );
@@ -63,14 +63,15 @@ const MyConversations = ({ setNavigate }) => {
             <div className="flex-1">
               <p className="text-black dark:text-white font-semibold text-sm md:text-base">
                 {conversation.users[0]._id === user._id
-                  ? conversation.users[1].username
-                  : conversation.users[0].username}
+                  ? conversation.users[1].username.split('@')[0]
+                  : conversation.users[0].username.split('@')[0]
+                  }
               </p>
   
               <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 truncate w-full">
                 {conversation.latestMessage
                   ? conversation.latestMessage.content
-                  : "Click here to send a message"}
+                  : "Click  to send message"}
               </p>
             </div>
   
