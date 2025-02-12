@@ -68,16 +68,19 @@ const ChatArea = () => {
     });
   });  
   console.log(allConversations);
-  
+  const activeTime = allConversations?.find(conv => conv._id != chatId)?.createdAt;
+
   return (
     <div className="chatArea-container">
       <div className="chatArea-header  dark:bg-slate-800 dark:text-white">
         <p className="con-icon">
           <Image
             src={
-              allConversations[0]?.users[0]._id === user?._id
-              ? allConversations[0]?.users[1].avatar || '/default-avatar.png'
-              : allConversations[0]?.users[0].avatar || '/default-avatar.png'
+              allConversations
+                ?.find(conv => conv._id === chatId)
+                ?.users
+                ?.find(u => u._id !== user?._id)
+                ?.avatar || '/default-avatar.png'
             }
             alt=""
             width={30}
@@ -86,8 +89,8 @@ const ChatArea = () => {
           />
         </p>
         <div className={"header-text"}>
-          <p className={"con-title"}> {name}</p>
-          <p className={"con-timeStamp"}> Time stamp</p>
+          <p className={"con-title text-black dark:text-white"}> {name}</p>
+          <p className={"con-timeStamp"}> {new Date(activeTime).toLocaleTimeString()}</p>
         </div>
         <IconButton>
           <MdDelete />
@@ -99,7 +102,6 @@ const ChatArea = () => {
             .slice()
             .reverse()
             .map((message, index) => {
-              /// Slice() is  used to create a shallow copy of the messageData array [avoid original array mutation]
               const sender = message.sender;
               const userId = user._id;
               if (sender._id === userId) {
