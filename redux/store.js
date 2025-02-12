@@ -14,8 +14,16 @@ const persistConfig = {
   storage,
   whitelist: ["token", "user"], // Only persist accessToken and user
 };
+const courseDetailsPersistConfig = {
+  key: "courseDetails",
+  storage,
+  whitelist: ["courseData"], // Replace "courseData" with actual state keys to persist
+};
 const persistedAuthReducer = persistReducer(persistConfig, authSlice);
-
+const persistedCourseDetailsReducer = persistReducer(
+  courseDetailsPersistConfig,
+  courseDetailsSlice
+);
 export const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
@@ -23,7 +31,7 @@ export const store = configureStore({
     conversation: conversationSlice,
     refreshSideBar: refreshSidebarSlice,
     createCourseData: createCourseSlice,
-    courseDetails: courseDetailsSlice,
+    courseDetails: persistedCourseDetailsReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(apiSlice.middleware),
