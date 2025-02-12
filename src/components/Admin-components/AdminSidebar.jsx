@@ -11,7 +11,6 @@ import {
   FiUsers,
 } from "react-icons/fi";
 import { RxCross1 } from "react-icons/rx";
-
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import Link from "next/link";
 import { IoCreateOutline } from "react-icons/io5";
@@ -20,18 +19,31 @@ import { MdOutlineEditNote } from "react-icons/md";
 const AdminLayout = ({ children }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isCoursesOpen, setIsCoursesOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State for mobile menu
   const router = useRouter();
+
   const handleMenuClick = (path) => {
     router.push(path);
+    setIsMobileMenuOpen(false); // Close mobile menu after navigation
   };
 
   return (
-    <div className={`min-h-screen flex`}>
+    <div className="min-h-screen flex">
+      {/* Mobile Menu Button */}
+      <button
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-gray-200 dark:bg-gray-900 rounded-lg"
+      >
+        {isMobileMenuOpen ? <RxCross1 /> : <BsArrowsAngleExpand />}
+      </button>
+
       {/* Sidebar */}
       <div
         className={`bg-gray-200 dark:bg-gray-900 p-4 transition-all duration-300 ${
           isCollapsed ? "w-20" : "md:w-64 w-64"
-        } h-screen sticky top-0`}
+        } h-screen sticky top-0 ${
+          isMobileMenuOpen ? "block" : "hidden"
+        } md:block`}
       >
         <div className="flex justify-between items-center border-b-4 border-gray-800 pb-4">
           <h1 className="dark:text-white text-black p-2 ">
@@ -79,18 +91,17 @@ const AdminLayout = ({ children }) => {
             {/* Dropdown Menu */}
             {isCoursesOpen && (
               <>
-                <div className="ml-8  mb-4 flex flex-col dark:text-white text-black">
+                <div className="ml-8 mb-4 flex flex-col dark:text-white text-black">
                   <Link href="/admin-dashboard/courses/create">
                     <span className="mb-4 p-2 hover:bg-gray-700 hover:text-white rounded-md transition duration-200">
-                     {!isCollapsed ? "Create Course" : <IoCreateOutline />
-                     }
+                      {!isCollapsed ? "Create Course" : <IoCreateOutline />}
                     </span>
                   </Link>
                 </div>
-                <div className="ml-8  mb-4 flex flex-col dark:text-white text-black">
+                <div className="ml-8 mb-4 flex flex-col dark:text-white text-black">
                   <Link href="/admin-dashboard/courses/manage">
                     <span className="mb-4 p-2 hover:bg-gray-700 hover:text-white rounded-md transition duration-200">
-                     {!isCollapsed ? "Manage Courses" : <MdOutlineEditNote />}
+                      {!isCollapsed ? "Manage Courses" : <MdOutlineEditNote />}
                     </span>
                   </Link>
                 </div>
@@ -129,6 +140,8 @@ const AdminLayout = ({ children }) => {
           </span>
         </div>
       </div>
+
+      {/* Main Content */}
       <div className="flex-1 p-6 bg-gray-100 dark:bg-gray-800 transition-colors duration-300">
         {children}
       </div>
