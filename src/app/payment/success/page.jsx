@@ -9,7 +9,6 @@ const SuccessPage = () => {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("sessionId"); 
   const courseId = searchParams.get("courseId")
-  console.log(sessionId, courseId);
   const enrollUser = async () => {
     try {
       const config = {
