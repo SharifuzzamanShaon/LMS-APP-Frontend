@@ -7,7 +7,13 @@ import toast from "react-hot-toast";
 const CheckOut = () => {
   const { courseDetails } = useSelector((state) => state.courseDetails);
   console.log(courseDetails);
-  const { name, price, thumbnail, description } = courseDetails.course || {};
+  const {
+    _id: id,
+    name,
+    price,
+    thumbnail,
+    description,
+  } = courseDetails.course || {};
 
   const makePayment = async () => {
     const config = {
@@ -17,6 +23,7 @@ const CheckOut = () => {
       withCredentials: true,
     };
     const data = {
+      id,
       name,
       price,
     };
@@ -26,7 +33,7 @@ const CheckOut = () => {
       "pk_test_51Qq6EcK5LodKUJLls5S3SYKD0SrqDhoFLyRvbSPVK5B0OcKRqPi3jgvwszyGHqxdOstmrXTYv3KYauckaGgcE3pY00SnSXJRih"
     );
 
-    const response =await  axios.post(
+    const response = await axios.post(
       `${process.env.NEXT_PUBLIC_SERVER_URI}/enroll-course/makePayment`,
       data,
       config
