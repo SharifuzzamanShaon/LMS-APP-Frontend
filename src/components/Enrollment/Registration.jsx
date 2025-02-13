@@ -133,7 +133,7 @@ const Registration = ({ isVerified, setIsVerified }) => {
                 name="fullName"
                 value={values.fullName}
                 onChange={handleChange}
-                className="dark:text-white"
+                className="dark:text-white text-black"
               />
               <FormHelperText>
                 {errors.fullName && touched.fullName ? (
@@ -153,7 +153,7 @@ const Registration = ({ isVerified, setIsVerified }) => {
               variant="outlined"
               className="mb-4"
             >
-              <InputLabel htmlFor="email" className="dark:text-white">
+              <InputLabel htmlFor="email" className="dark:text-gray-400">
                 Email
               </InputLabel>
               <Input
@@ -162,7 +162,7 @@ const Registration = ({ isVerified, setIsVerified }) => {
                 type="email"
                 value={values.email}
                 onChange={handleChange}
-                className="dark:text-white"
+                className="dark:text-white text-black"
               />
               <FormHelperText>
                 {errors.email && touched.email ? (
@@ -209,7 +209,7 @@ const Registration = ({ isVerified, setIsVerified }) => {
           {/* Phone Number */}
           <div>
             <FormControl fullWidth variant="outlined" className="mb-4">
-              <InputLabel htmlFor="phoneNumber" className="dark:text-white">
+              <InputLabel htmlFor="phoneNumber" className="dark:text-gray-400">
                 Phone Number
               </InputLabel>
               <Input
@@ -218,7 +218,7 @@ const Registration = ({ isVerified, setIsVerified }) => {
                 type="text"
                 value={values.phoneNumber}
                 onChange={handleChange}
-                className="dark:text-white"
+                className="dark:text-white text-black"
               />
               <FormHelperText>
                 {errors.phoneNumber && touched.phoneNumber ? (
@@ -240,7 +240,7 @@ const Registration = ({ isVerified, setIsVerified }) => {
               variant="outlined"
               className="mb-4"
             >
-              <InputLabel htmlFor="password" className="dark:text-white">
+              <InputLabel htmlFor="password" className="dark:text-gray-400">
                 Password
               </InputLabel>
               <Input
@@ -249,7 +249,7 @@ const Registration = ({ isVerified, setIsVerified }) => {
                 type="password"
                 value={values.password}
                 onChange={handleChange}
-                className="dark:text-white"
+                className="dark:text-white text-black"
               />
               <FormHelperText>
                 {errors.password && touched.password ? (
