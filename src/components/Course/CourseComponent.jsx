@@ -7,9 +7,9 @@ import FilterCourseByCategoryBtn from "../Filter-components/FilterCourseByCatego
 
 const CourseCard = ({ course }) => {
   return (
-      <div className="bg-white dark:bg-gray-800 dark:text-gray-200 shadow-md rounded-lg p-4 transition duration-300 flex flex-col h-full">
+      <div className="bg-white dark:bg-gray-800 dark:text-gray-200 shadow-md rounded-lg p-3 sm:p-4 transition duration-300 flex flex-col h-full">
         {course.thumbnail && (
-          <div className="mb-4 relative w-full h-48">
+          <div className="mb-3 sm:mb-4 relative w-full h-36 sm:h-48">
             <Image
               src={course.thumbnail.url}
               alt={`${course.name} Thumbnail`}
@@ -19,20 +19,20 @@ const CourseCard = ({ course }) => {
             />
           </div>
         )}
-        <h2 className="text-sm font-bold text-gray-700 dark:text-gray-400 mb-2">
+        <h2 className="text-xs sm:text-sm md:text-base font-bold text-gray-700 dark:text-gray-400 mb-1 sm:mb-2">
           {course.name}
         </h2>
-        <p className="text-xs text-gray-700 dark:text-gray-400 mb-2 line-clamp-2">
+        <p className="text-xs md:text-sm text-gray-700 dark:text-gray-400 mb-1 sm:mb-2 line-clamp-2">
           {course.description || "No description available."}
         </p>
-        <p className="text-sm text-gray-700 dark:text-gray-400 mb-2">
+        <p className="text-xs md:text-sm text-gray-700 dark:text-gray-400 mb-1 sm:mb-2">
           <strong>Price:</strong> ${course.price}
         </p>
-        <p className="text-xs text-gray-600 dark:text-gray-400">
+        <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 mb-2 sm:mb-3">
           <strong>Level:</strong> {course.level.join(", ")}
         </p>
-        <Link href={`/courses/${course._id}`}>
-          <button className="w-full bg-blue-500 dark:bg-blue-700 text-white py-1 px-2 text-sm rounded-md hover:bg-blue-600 dark:hover:bg-blue-800 transition">
+        <Link href={`/courses/${course._id}`} className="mt-auto">
+          <button className="w-full bg-blue-500 dark:bg-blue-700 text-white py-1.5 sm:py-2 px-2 text-xs sm:text-sm rounded-md hover:bg-blue-600 dark:hover:bg-blue-800 transition">
             View Details
           </button>
         </Link>
@@ -65,7 +65,7 @@ const CourseComponent = () => {
   }, [fetchAllCourse]);
 
   return (
-    <div className="p-4 bg-gray-100 dark:bg-gray-900 ">
+    <div className="p-4 bg-gray-100 dark:bg-gray-900 max-w-[1440px] mx-auto px-8 sm:px-12">
       <h1 className="text-3sm font-bold text-gray-600 dark:text-gray-100 mb-6">
         Courses
       </h1>
