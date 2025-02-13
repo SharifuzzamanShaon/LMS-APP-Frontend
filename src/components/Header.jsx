@@ -3,12 +3,13 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import NavItems from "../utils/NavItems";
 import ThemeSwitcher from "../utils/ThemeSwitcher";
-import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
+import { HiOutlineMenuAlt3, HiOutlineUserCircle, HiInformationCircle } from "react-icons/hi";
 import CustomModal from "../utils/CustomModal";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import UserProfileMenu from "./ProfileShortcut/UserProfileMenu";
 import { Button } from "@mui/material";
+import { useRouter } from "next/navigation";
 
 const Header = ({ open, activeItem, setOpen }) => {
   const [active, setActive] = useState(false);
@@ -31,6 +32,10 @@ const Header = ({ open, activeItem, setOpen }) => {
       setOpenSidebar(false);
     }
   };
+  const router = useRouter();
+  const handleNav = () => {
+    router.push("/admin-dashboard");
+  };
   return (
     <div className="w-full relative">
       <div
@@ -42,15 +47,22 @@ const Header = ({ open, activeItem, setOpen }) => {
       >
         <div className="w-{95%} md:w-{92%} m-auto py-2 h-full">
           <div className="w-full h-[70%] flex items-center justify-between px-4 py-4">
-            <div>
+            <div className="flex items-center gap-4">
               <Link
                 href={"/"}
                 className={`text-[20px] font-Poppins font-500 text-black dark:text-white`}
               >
                 Skill-Sage
               </Link>
+              {user?.role === "admin" && (
+                <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md border border-gray-300 dark:border-gray-700 cursor-pointer" onClick={handleNav}>
+                  <HiInformationCircle className="w-5 h-5" />
+                  <span className="text-sm font-normal">
+                    You are in User view | Click to browse as Admin
+                  </span>
+                </div>
+              )}
             </div>
-
 
             <div className="flex items-center">
               {
@@ -86,13 +98,20 @@ const Header = ({ open, activeItem, setOpen }) => {
             onClick={handleClose}
             id="screen"
           >
-            <div className="w-[70%] fixed z-[9999999999] h-screen bg-white dark:bg-slate-900 dark:bg-opacity-90 top-0 right-0">
-              <Link
-                href={"/"}
-                className={`text-[20px] pt-5 ml-5 font-Poppins font-500 text-black dark:text-white`}
-              >
-                Skill-Sage
-              </Link>
+            <div className="w-[70%] fixed z-[9999999999] h-screen bg-white dark:bg-slate-900 dark:bg-opacity-90 top-0 right-0 mt-4">
+              <div className="flex items-center justify-between px-5 pt-5">
+                <Link
+                  href={"/"}
+                  className={`text-[20px] font-Poppins font-500 text-black dark:text-white`}
+                >
+                  Skill-Sage
+                </Link>
+                <HiOutlineMenuAlt3
+                  size={25}
+                  className="cursor-pointer dark:text-white text-black"
+                  onClick={() => setOpenSidebar(false)}
+                />
+              </div>
               <NavItems activeItem={activeItem} isMobile={true} />
 
               <div>
@@ -112,12 +131,11 @@ const Header = ({ open, activeItem, setOpen }) => {
                   />
                 )}
               </div>
-
               <br />
               <br />
               <br />
               <p className="text-[16px] px-2 pl-5 dark:text-white text-black">
-                Copyright 2024{" "}
+                Copyright 2025{" "}
               </p>
             </div>
           </div>
