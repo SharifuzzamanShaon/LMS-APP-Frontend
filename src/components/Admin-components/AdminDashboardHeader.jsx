@@ -2,14 +2,18 @@
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ThemeSwitcher from "../../utils/ThemeSwitcher";
-import { HiOutlineMenuAlt3, HiOutlineUserCircle } from "react-icons/hi";
+import { HiOutlineMenuAlt3, HiOutlineUserCircle, HiInformationCircle } from "react-icons/hi";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import UserProfileMenu from "../ProfileShortcut/UserProfileMenu";
+import { useRouter } from "next/navigation";
 
 const AdminDashboardHeader = () => {
   const { user } = useSelector((state) => state.auth);
-
+  const route = useRouter()
+  const handleNav=()=>{
+    route.push("/")
+  }
   return (
     <div className="w-full relative">
       <div
@@ -24,8 +28,14 @@ const AdminDashboardHeader = () => {
                 href={"/"}
                 className={`text-[25px] font-Poppins font-500 text-black dark:text-white`}
               >
-                A-A-O
+                SkillSage Admin
               </Link>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md border border-gray-300 dark:border-gray-700 cursor-pointer" onClick={handleNav}>
+              <HiInformationCircle className="w-5 h-5" />
+              <span className="text-sm font-normal">
+                You are in admin view. Click to browse as user
+              </span>
             </div>
             <div className="flex items-center">
               <ThemeSwitcher />
