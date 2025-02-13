@@ -63,6 +63,7 @@ const CourseDescription = ({ course }) => {
         </ul>
       </div>
       {/* Course Data Sections */}
+
       <div className="mb-6">
         <h2 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
           Course Sections
