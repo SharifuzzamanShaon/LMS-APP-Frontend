@@ -142,7 +142,7 @@ const LoginModule = ({ setRoute, setOpen }) => {
             </FormHelperText>
           </FormControl>
         </div>
-        <Button type="submit" variant="contained" color="primary">
+        <Button type="submit" variant="contained" color="primary" className="dark:text-white text-black mr-5  ">
           Login
         </Button>
         <SpeedLogin setValues={setValues}/>
