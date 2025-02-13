@@ -29,7 +29,7 @@ const page = () => {
       <Header open={open} activeItem={activeItem} setOpen={setOpen}></Header>
       <HeroSection />
       <CourseComponent/>
-      <ForVisitor/> 
+      {!user && <ForVisitor/>}
       <Footer/>
     </div>
   );
