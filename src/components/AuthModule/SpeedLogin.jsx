@@ -17,7 +17,7 @@ const SpeedLogin = ({ setValues }) => {
       variant="outlined"
       color="secondary"
       onClick={handleSpeedLogin}
-      className="mt-2 ml-4"
+      className="mt-2 ml-4 dark:text-white text-black"
     >
       Speed Login "Quick test"
     </Button>
