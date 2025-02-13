@@ -4,7 +4,7 @@ import { Button, FormControl } from "@mui/material";
 import React, { useState } from "react";
 import { FiDelete } from "react-icons/fi";
 
-const CourseDataModule = ({setCourseData}) => {
+const CourseDataModule = ({setCourseData, resetCourseData}) => {
   const [totalSection, setTotalSection] = useState(40);
   const [content, setContent] = useState([{ id: Date.now(), value: "" }]); // Initialize with one object
 
@@ -24,9 +24,9 @@ const CourseDataModule = ({setCourseData}) => {
         <p className="mb-4 text-lg text-gray-700 dark:text-white">
           Course-content by section
         </p>
-        {content.map((input, index) => (
+        {content.map((input) => (
           <div key={input.id} className="flex items-center space-x-4 mb-4">
-            <CourseAccordion setCourseData={setCourseData}/>
+            <CourseAccordion setCourseData={setCourseData} resetCourseData={resetCourseData}/>
             <button
               onClick={() => handleRemoveInput(input.id)}
               className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-700 focus:outline-none"
