@@ -8,6 +8,8 @@ const SuccessPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("sessionId"); 
+  const courseId = searchParams.get("courseId")
+  console.log(sessionId, courseId);
   const enrollUser = async () => {
     try {
       const config = {
@@ -16,16 +18,20 @@ const SuccessPage = () => {
         },
         withCredentials: true,
       };
-      await axios.post(
+      const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_URI}/enroll-course/enroll`,
-        {sessionId},
+        {sessionId, courseId},
         config
       );
+      console.log(response);
 
-      toast.success("Payment successful! You are now enrolled.");
+      toast.success(response?.data.message);
       router.push("/"); // Redirect to a relevant page
     } catch (error) {
-      toast.error("Error enrolling in course. Please contact support.");
+      toast.error( "Error enrolling in course. Please contact support.");
+      setTimeout(() => {
+        router.push("/");
+      }, 3000);
     }
   };
   useEffect(() => {
