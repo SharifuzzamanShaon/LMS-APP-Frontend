@@ -15,9 +15,9 @@ const steps = ["Register Course", "Terms and Conditions", "Payment"];
 export default function EnrollmentSteps() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [isVerified, setIsVerified] = React.useState(false);
-  const [isAccepted, setAccepted] = React.useState(false)
+  const [isAccepted, setAccepted] = React.useState(false);
   const [skipped, setSkipped] = React.useState(new Set());
-  
+
   const isStepOptional = (step) => step === 1;
 
   const isStepSkipped = (step) => skipped.has(step);
@@ -56,9 +56,9 @@ export default function EnrollmentSteps() {
           <Registration isVerified={isVerified} setIsVerified={setIsVerified} />
         );
       case 1:
-        return <TermsandConditions setAccepted={setAccepted}/>;
+        return <TermsandConditions setAccepted={setAccepted} />;
       case 2:
-        return <CheckOut/>
+        return <CheckOut />;
       default:
         return "Unknown step";
     }
@@ -66,14 +66,14 @@ export default function EnrollmentSteps() {
   React.useEffect(() => {
     if (isVerified) {
       toast.success("Account varified");
-      handleNext()
+      handleNext();
     }
   }, [isVerified]);
-React.useEffect(()=>{
-  if(isAccepted){
-    handleNext()
-  }
-},[isAccepted])
+  React.useEffect(() => {
+    if (isAccepted) {
+      handleNext();
+    }
+  }, [isAccepted]);
 
   return (
     <div className="px-4 sm:px-8 lg:px-10 py-4 max-w-4xl mx-auto ">
@@ -81,13 +81,20 @@ React.useEffect(()=>{
         <Stepper activeStep={activeStep}>
           {steps.map((label, index) => {
             const stepProps = {};
-            const labelProps = {};
+            const labelProps = {
+              className: "dark:text-white",
+              StepIconProps: {
+                className: "dark:text-white",
+              },
+            };
             if (isStepOptional(index)) {
               labelProps.optional = (
-                <Typography variant="caption dark:text-white">Optional</Typography>
+                <Typography variant="caption" className="dark:text-white">
+                  Optional
+                </Typography>
               );
             }
-      
+
             return (
               <Step key={label} {...stepProps}>
                 <StepLabel {...labelProps}>{label}</StepLabel>
@@ -99,11 +106,15 @@ React.useEffect(()=>{
       <div className="mt-6">
         {activeStep === steps.length ? (
           <div>
-            <Typography className="mb-4 text-center">
+            <Typography className="mb-4 text-center dark:text-white">
               All steps completed - you&apos;re finished
             </Typography>
             <div className="flex justify-end">
-              <Button variant="contained" onClick={handleReset}>
+              <Button
+                variant="contained"
+                className="dark:text-white"
+                onClick={handleReset}
+              >
                 Reset
               </Button>
             </div>
@@ -116,18 +127,20 @@ React.useEffect(()=>{
                 color="inherit"
                 disabled={activeStep === 0}
                 onClick={handleBack}
+                className="dark:text-white"
               >
                 Back
               </Button>
-
-              <Button
-              disabled={isAccepted && isVerified}
-                variant="contained"
-                onClick={handleNext}
-                className="bg-blue-500 hover:bg-blue-700 text-white"
-              >
-                {activeStep === steps.length > 0 ? "" : "Next"}
-              </Button>
+                <Button
+                  disabled={activeStep === 1 || activeStep === 2}
+                  variant="contained"
+                  onClick={handleNext}
+                  className={`bg-blue-500 hover:bg-blue-700 text-white ${
+                    activeStep === 1 || activeStep === 2 ? "hidden" : ""
+                  }`}
+                >
+                  Next
+                </Button>
             </div>
           </div>
         )}
