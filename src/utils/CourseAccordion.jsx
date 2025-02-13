@@ -15,10 +15,8 @@ import {
 import VideoSection from "@/components/Admin-components/Course/VideoSection";
 import { dark } from "@mui/material/styles/createPalette";
 
-const Schema = Yup.object().shape({
-
-});
-export default function CourseAccordion({ setCourseData }) {
+const Schema = Yup.object().shape({});
+export default function CourseAccordion({ setCourseData, resetCourseData }) {
   const newCourseData = useSelector((state) => state.createCourseData);
   const dispatch = useDispatch();
   const formik = useFormik({
@@ -35,15 +33,18 @@ export default function CourseAccordion({ setCourseData }) {
     },
     validationSchema: Schema,
     onSubmit: async (courseData) => {
-      console.log("Clicked");
-
-      console.log(courseData);
       dispatch(setCousreData(courseData));
       setCourseData(true);
     },
   });
 
-  const { errors, touched, values, handleChange, handleSubmit } = formik;
+  const { errors, touched, values, handleChange, handleSubmit, resetForm } =
+    formik;
+  // Expose resetForm through the onReset prop
+  React.useEffect(() => {
+      resetForm();
+  }, [resetCourseData]);
+
   return (
     <div className="p-2 max-w-6xl mx-auto font-Poppins">
       <form onSubmit={handleSubmit}>
@@ -82,7 +83,7 @@ export default function CourseAccordion({ setCourseData }) {
                   id="description"
                   value={values.description}
                   onChange={handleChange}
-                  className="dark:text-white text-black"
+                  className="dark:text-white text-black w-12/12"
                   aria-describedby="description-helper-text"
                 />
                 <FormHelperText
@@ -93,33 +94,6 @@ export default function CourseAccordion({ setCourseData }) {
                     <span className="text-red-600">{errors.description}</span>
                   ) : (
                     <span>Provide a description for the course</span>
-                  )}
-                </FormHelperText>
-              </FormControl>
-
-              <FormControl fullWidth variant="outlined">
-                <InputLabel
-                  htmlFor="videoUrl"
-                  className="dark:text-white text-black"
-                >
-                  Video URL
-                </InputLabel>
-                <Input
-                  type="text"
-                  id="videoUrl"
-                  value={values.videoUrl}
-                  onChange={handleChange}
-                  className="dark:text-white text-black"
-                  aria-describedby="videoUrl-helper-text"
-                />
-                <FormHelperText
-                  id="videoUrl-helper-text"
-                  className="dark:text-white text-black"
-                >
-                  {errors.videoUrl && touched.videoUrl ? (
-                    <span className="text-red-600">{errors.videoUrl}</span>
-                  ) : (
-                    <span>Provide a video URL</span>
                   )}
                 </FormHelperText>
               </FormControl>
