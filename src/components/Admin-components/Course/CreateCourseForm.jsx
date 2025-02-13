@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import FormControl from "@mui/material/FormControl";
 import * as Yup from "yup";
 import {
-  Box,
   Button,
   FormHelperText,
   Input,
@@ -11,7 +10,7 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
-import { ErrorMessage, Field, FieldArray, useFormik } from "formik";
+import { useFormik } from "formik";
 import { FiDelete } from "react-icons/fi";
 import GetCourseTags from "./GetCourseTags";
 import CourseDescription from "./CourseDescription/CourseDescription";
@@ -45,8 +44,8 @@ let loadingToaster;
 
 const CreateCourseForm = () => {
   const [benefits, setBenefits] = useState([]);
-  const [tags, setTags] = useState([]);
-  const [level, setLevel] = useState("");
+  const [resetThumbnailnput, setResetThumbnailnput] = useState(false);
+  const [resetCourseData, setResetCourseData] = useState(false);
   const [isSetCourseDetails, setCourseDetails] = useState(false);
   const [isSetCourseData, setCourseData] = useState(false);
   const dispatch = useDispatch();
@@ -67,6 +66,7 @@ const CreateCourseForm = () => {
     if (isSuccess) {
       toast.dismiss(loadingToaster);
       toast.success("course created successfully");
+      resetCourseForm();
     }
     if (error) {
       toast.dismiss(loadingToaster);
@@ -98,7 +98,8 @@ const CreateCourseForm = () => {
       }
     },
   });
-  const { errors, touched, values, handleChange, handleSubmit } = formik;
+  const { errors, touched, values, handleChange, handleSubmit, resetForm } =
+    formik;
 
   const [isFormValid, setIsFormValid] = useState(true);
   const handleUploadCourse = async () => {
@@ -107,10 +108,7 @@ const CreateCourseForm = () => {
         console.log("please fill-up the course information ");
         return;
       }
-      console.log(newCourseData);
-
       await createNewCourse(newCourseData);
-      toast.success("Course uploaded successfully!");
     } catch (error) {
       console.error("Error uploading course:", error);
       const errorMessage =
@@ -120,12 +118,17 @@ const CreateCourseForm = () => {
       toast.error(errorMessage);
     }
   };
-  console.log(isSetCourseDetails);
-  console.log(isSetCourseData);
+  const resetCourseForm = () => {
+    resetForm();
+    setResetThumbnailnput(true);
+    setResetCourseData(true);
+    setCourseDetails(false);
+    setCourseData(false);
+  };
   return (
     <>
       <FormControl>
-        <CourseThumbnail formik={formik} values={values} />
+        <CourseThumbnail formik={formik} resetThumbnailnput={resetThumbnailnput} />
         <FormHelperText
           id="name-helper-text"
           className="dark:text-white text-black"
@@ -269,7 +272,10 @@ const CreateCourseForm = () => {
         Add Benefit
       </Button>
       <div className="flex flex-col items-center justify-center my-3">
-        <CourseDataModule setCourseData={setCourseData}></CourseDataModule>
+        <CourseDataModule
+          setCourseData={setCourseData}
+          resetCourseData={resetCourseData}
+        ></CourseDataModule>
       </div>
       <Button
         onClick={handleUploadCourse}
@@ -281,6 +287,7 @@ const CreateCourseForm = () => {
       >
         Upload Now
       </Button>
+      <Button onClick={resetCourseForm}>Reset</Button>
     </>
   );
 };
