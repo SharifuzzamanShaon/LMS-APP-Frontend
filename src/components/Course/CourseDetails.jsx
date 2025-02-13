@@ -4,15 +4,15 @@ import CourseEnrollmentSidebar from "./CourseDetails/CourseEnrollmentSidebar";
 
 const CourseDetails = ({ course }) => {
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white dark:bg-gray-800 rounded-lg shadow-lg my-8">
-      <div className="flex flex-col lg:flex-row lg:space-x-6 h-full">
+    <div className="max-w-4xl mx-auto p-4 sm:p-6 bg-white dark:bg-slate-800 rounded-lg shadow-lg my-4 sm:my-8">
+      <div className="flex flex-col lg:flex-row gap-6">
         {/* Left Column: Scrollable Content */}
-        <div className="flex-1 overflow-y-auto h-full pr-4">
+        <div className="flex-1 overflow-y-auto">
           <CourseDescription course={course} />
         </div>
 
-        {/* Right Column: Fixed Sidebar */}
-        <div className="w-80 lg:w-96 flex-none">
+        {/* Right Column: Sidebar */}
+        <div className="w-full lg:w-96 flex-none">
           <CourseEnrollmentSidebar course={course} />
         </div>
       </div>
