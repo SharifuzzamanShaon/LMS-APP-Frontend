@@ -34,7 +34,7 @@ SkillSage is a **Next.js-based Learning Management System (LMS)** that allows us
 
 Clone the repository and install dependencies:  
 ```bash
-git clone https://github.com/your-repo-link.git
+git clone git-repo-link.git
 cd skillsage
 npm install
 
