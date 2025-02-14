@@ -10,34 +10,79 @@ import { useTheme } from '@mui/material/styles';
 
 const CourseSections = ({ courseData }) => {
   const theme = useTheme();
-  console.log(courseData);
+
+  const getTotalLecturesAndDuration = (section) => {
+    const lectureCount = section.sectionContents?.length || 0;
+    // Assuming duration is in minutes and stored in each content
+    const totalDuration = section.sectionContents?.reduce((acc, content) => 
+      acc + (content.duration || 0), 0);
+    return { lectureCount, totalDuration };
+  };
 
   return (
-    <div>
-      {courseData?.map((section) => (
-        <>
+    <div className="space-y-2">
+      {courseData?.map((section) => {
+        const { lectureCount, totalDuration } = getTotalLecturesAndDuration(section);
+        return (
           <Accordion 
             key={section._id}
             sx={{
               backgroundColor: theme.palette.mode === 'dark' ? 'rgba(25, 118, 210, 0.08)' : 'rgba(25, 118, 210, 0.04)',
               color: theme.palette.text.primary,
+              '& .MuiAccordionSummary-root': {
+                padding: '0.75rem 1rem',
+              }
             }}
           >
             <AccordionSummary
-              // expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel2-content"
-              id="panel2-header"
+              aria-controls={`panel-${section._id}-content`}
+              id={`panel-${section._id}-header`}
             >
-              <Typography component="span" className="text-2xl font-bold dark:text-white text-black">{section.title}</Typography>
+              <div className="flex justify-between items-center w-full">
+                <Typography component="span" className="text-xl font-semibold">
+                  {section.title}
+                </Typography>
+                <Typography component="span" className="text-sm text-gray-600">
+                  {lectureCount} lectures • {totalDuration}min
+                </Typography>
+              </div>
             </AccordionSummary>
             <AccordionDetails>
-              <Typography color="text.secondary">
-                {section.description || "No description"}
-              </Typography>
+              <div className="space-y-4">
+                {section.sectionContents?.map((content) => (
+                  <div key={content._id} className="flex items-center justify-between py-1">
+                    <div className="flex items-center gap-3">
+                      <span className="text-gray-600">
+                        {content.type === 'video' ? '▶' : '📄'}
+                      </span>
+                      <Typography className="text-base">
+                        {content.videoTitle}
+                      </Typography>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {content.videoUrl && (
+                        <Button
+                          variant="text"
+                          color="primary"
+                          size="small"
+                          href={content.videoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Preview
+                        </Button>
+                      )}
+                      <Typography className="text-sm text-gray-600 min-w-[4rem] text-right">
+                        {content.duration?.toString().padStart(2, '0')}:{content.durationSeconds?.toString().padStart(2, '0')}
+                      </Typography>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </AccordionDetails>
           </Accordion>
-        </>
-      ))}
+        );
+      })}
     </div>
   );
 };
