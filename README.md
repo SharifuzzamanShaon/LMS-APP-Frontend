@@ -32,8 +32,8 @@ SkillSage is a **Next.js-based Learning Management System (LMS)** that allows us
 
 ## 📌 UML Diagram for this system:
 
-🔗 [View UML Diagram] (https://drive.google.com/file/d/1HODewEzjwO3bnrGcP5HPENFxc4TGX59i/view?usp=drive_link)
-
+- 🔗 [View UML Diagram] (https://drive.google.com/file/d/1HODewEzjwO3bnrGcP5HPENFxc4TGX59i/view?usp=drive_link)
+- 🔗 [View UML Diagram] (https://drive.google.com/file/d/1m5apg4hhN_KsHF9Tu9LCsohFeRDwCZaP/view?usp=sharing)
 ## 🛠️ Installation  
 
 Clone the repository and install dependencies:  
