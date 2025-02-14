@@ -8,7 +8,7 @@ const CheckOut = () => {
   const { courseDetails } = useSelector((state) => state.courseDetails);
   console.log(courseDetails);
   const {
-    _id: id,
+    _id,
     name,
     price,
     thumbnail,
@@ -23,7 +23,7 @@ const CheckOut = () => {
       withCredentials: true,
     };
     const data = {
-      id,
+      id: _id,
       name,
       price,
     };
