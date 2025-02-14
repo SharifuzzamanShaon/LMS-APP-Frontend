@@ -1,7 +1,8 @@
 "use client";
-import { Button, Input } from "@mui/material";
+import { Button, FormControl, Input, InputLabel } from "@mui/material";
 import React, { useState } from "react";
 import { FiDelete } from "react-icons/fi";
+import { MdCheckBox, MdLock, MdLockOpen } from "react-icons/md";
 
 const VideoSection = ({ formik }) => {
   const [totalSection] = useState(10);
@@ -17,7 +18,7 @@ const VideoSection = ({ formik }) => {
     if (formik.values.sectionContents.length < totalSection) {
       formik.setFieldValue("sectionContents", [
         ...formik.values.sectionContents,
-        { videoTitle: "", videoUrl: "" },
+        { videoTitle: "", videoUrl: "", paid: true },
       ]);
     }
   };
@@ -26,27 +27,53 @@ const VideoSection = ({ formik }) => {
     <div className="mt-6 space-y-4">
       {formik.values.sectionContents.map((section, index) => (
         <div key={index} className="flex items-center space-x-4">
-          <Input
-            name={`sectionContents.${index}.videoTitle`}
-            value={section.videoTitle}
-            onChange={formik.handleChange}
-            placeholder="Video Title"
-            className="dark:text-white text-black w-full"
-          />
-          <Input
-            name={`sectionContents.${index}.videoUrl`}
-            value={section.videoUrl}
-            onChange={formik.handleChange}
-            placeholder="Video URL"
-            className="dark:text-white text-black w-full "
-          />
-          <button
-            type="button"
-            onClick={() => handleRemove(index)}
-            className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-700"
-          >
-            <FiDelete />
-          </button>
+          <FormControl>
+            <Input
+              name={`sectionContents.${index}.videoTitle`}
+              value={section.videoTitle || ""}
+              onChange={formik.handleChange}
+              placeholder="Video Title"
+              className="dark:text-white text-black w-full"
+            />
+          </FormControl>
+          <FormControl>
+            <Input
+              name={`sectionContents.${index}.videoUrl`}
+              value={section.videoUrl || ""}
+              onChange={formik.handleChange}
+              placeholder="Video URL"
+              className="dark:text-white text-black w-full "
+            />
+          </FormControl>
+          <FormControl className="flex items-center">
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                name={`sectionContents.${index}.paid`}
+                checked={section.paid}
+                onChange={() =>
+                  formik.setFieldValue(
+                    `sectionContents.${index}.paid`,
+                    !section.paid
+                  )
+                }
+              />
+              {section.paid ? (
+                <MdLock className="text-gray-600" />
+              ) : (
+                <MdLockOpen className="text-green-600" />
+              )}
+            </div>
+          </FormControl>
+          <FormControl>
+            <button
+              type="button"
+              onClick={() => handleRemove(index)}
+              className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-700"
+            >
+              <FiDelete />
+            </button>
+          </FormControl>
         </div>
       ))}
 
@@ -57,6 +84,7 @@ const VideoSection = ({ formik }) => {
       >
         Add New Section
       </Button>
+
     </div>
   );
 };
