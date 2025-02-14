@@ -25,7 +25,7 @@ const CourseDataModule = ({setCourseData, resetCourseData}) => {
           Course-content by section
         </p>
         {content.map((input) => (
-          <div key={input.id} className="flex items-center space-x-4 mb-4">
+          <div key={input.id} className="flex items-center space-x-4 mb-4 w-full">
             <CourseAccordion setCourseData={setCourseData} resetCourseData={resetCourseData}/>
             <button
               onClick={() => handleRemoveInput(input.id)}
@@ -37,12 +37,12 @@ const CourseDataModule = ({setCourseData, resetCourseData}) => {
         ))}
         <Button
           variant="outlined"
-          className="mt-2 text-black dark:text-white"
+          className="mt-2 text-black dark:text-white w-6/12 mx-auto block"
           onClick={handleAddInput}
           disabled={content.length >= totalSection}
           size="small"
         >
-          Add New Section
+          Add Section
         </Button>
       </FormControl>
     </>
