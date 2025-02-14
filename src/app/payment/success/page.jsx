@@ -9,6 +9,11 @@ const SuccessPage = () => {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get("sessionId"); 
   const courseId = searchParams.get("courseId")
+  console.log(sessionId, courseId);
+  if(!sessionId || !courseId){
+    toast.error("Invalid session ID or course ID.");
+    return;
+  }
   const enrollUser = async () => {
     try {
       const config = {
@@ -17,17 +22,16 @@ const SuccessPage = () => {
         },
         withCredentials: true,
       };
+
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_SERVER_URI}/enroll-course/enroll`,
+        `${process.env.NEXT_PUBLIC_SERVER_URI}enroll-course/enroll`,
         {sessionId, courseId},
         config
       );
-      console.log(response);
-
       toast.success(response?.data.message);
-      router.push("/"); // Redirect to a relevant page
+      router.push("/");
     } catch (error) {
-      toast.error( "Error enrolling in course. Please contact support.");
+      toast.error(error?.response?.data?.message || "Error enrolling in course. Please contact support.");
       setTimeout(() => {
         router.push("/");
       }, 3000);
