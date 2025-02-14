@@ -30,6 +30,10 @@ SkillSage is a **Next.js-based Learning Management System (LMS)** that allows us
 - **Real-Time Communication:** Socket.IO  
 - **Payments:** Integrated Payment Gateway  
 
+## 📌 UML Diagram for this system:
+
+🔗 [View UML Diagram] (https://drive.google.com/file/d/1HODewEzjwO3bnrGcP5HPENFxc4TGX59i/view?usp=drive_link)
+
 ## 🛠️ Installation  
 
 Clone the repository and install dependencies:  
