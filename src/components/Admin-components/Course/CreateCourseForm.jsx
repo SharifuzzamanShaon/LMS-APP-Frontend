@@ -271,7 +271,7 @@ const CreateCourseForm = () => {
       >
         Add Benefit
       </Button>
-      <div className="flex flex-col items-center justify-center my-3">
+      <div className="w-full my-3">
         <CourseDataModule
           setCourseData={setCourseData}
           resetCourseData={resetCourseData}
