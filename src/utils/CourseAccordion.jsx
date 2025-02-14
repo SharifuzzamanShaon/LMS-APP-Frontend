@@ -9,27 +9,26 @@ import { FormControl, FormHelperText, Input, InputLabel } from "@mui/material";
 import { useFormik } from "formik";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  setCourseInfo,
   setCousreData,
 } from "../../redux/features/admin/createCourseSlice";
 import VideoSection from "@/components/Admin-components/Course/VideoSection";
-import { dark } from "@mui/material/styles/createPalette";
 
 const Schema = Yup.object().shape({});
 export default function CourseAccordion({ setCourseData, resetCourseData }) {
-  const newCourseData = useSelector((state) => state.createCourseData);
   const dispatch = useDispatch();
+  const [expanded, setExpanded] = React.useState(true);
+
   const formik = useFormik({
     initialValues: {
-      title: "", // The title of the course
-      description: "", // Description of the course
+      title: "",
+      description: "",
       sectionContents: [
         {
-          videoUrl: "", // URL for video
-          videoTitle: "", // Title of the video
+          videoUrl: "",
+          videoTitle: "",
+          paid: true,
         },
-      ],
-      videoSection: "",
+      ]
     },
     validationSchema: Schema,
     onSubmit: async (courseData) => {
@@ -40,15 +39,23 @@ export default function CourseAccordion({ setCourseData, resetCourseData }) {
 
   const { errors, touched, values, handleChange, handleSubmit, resetForm } =
     formik;
-  // Expose resetForm through the onReset prop
   React.useEffect(() => {
       resetForm();
   }, [resetCourseData]);
 
+  const handleSaveClick = async (e) => {
+    await handleSubmit(e);
+    setExpanded(false);
+  };
+
   return (
-    <div className="p-2 max-w-6xl mx-auto font-Poppins">
+    <div className="p-2 w-full mx-auto font-Poppins">
       <form onSubmit={handleSubmit}>
-        <Accordion className="dark:bg-slate-900 bg-white shadow-md rounded-md">
+        <Accordion 
+          expanded={expanded}
+          onChange={() => setExpanded(!expanded)}
+          className="dark:bg-slate-900 bg-white shadow-md rounded-md w-full"
+        >
           <AccordionSummary
             expandIcon={
               <MdExpandMore className="text-black dark:text-white text-2xl" />
@@ -103,7 +110,7 @@ export default function CourseAccordion({ setCourseData, resetCourseData }) {
 
             <div className="mt-6">
               <Button
-                onClick={handleSubmit}
+                onClick={handleSaveClick}
                 variant="contained"
                 color="primary"
                 size="medium"
