@@ -10,9 +10,7 @@ const initialState = {
   level: "",
   demoUrl: "",
   benefits: [],
-  courseData: [
-    
-  ],
+  courseData: [],
 };
 
 const createCourseSlice = createSlice({
@@ -26,7 +24,7 @@ const createCourseSlice = createSlice({
       };
     },
     setCousreData: (state, action) => {
-      state.courseData.push(action.payload); // Immer handles the immutable update
+      state.courseData.push(action.payload);
     },
     
   },
