@@ -10,7 +10,8 @@ import { useTheme } from '@mui/material/styles';
 
 const CourseSections = ({ courseData }) => {
   const theme = useTheme();
-
+  console.log(courseData);
+  
   const getTotalLecturesAndDuration = (section) => {
     const lectureCount = section.sectionContents?.length || 0;
     // Assuming duration is in minutes and stored in each content
@@ -39,7 +40,7 @@ const CourseSections = ({ courseData }) => {
               id={`panel-${section._id}-header`}
             >
               <div className="flex justify-between items-center w-full">
-                <Typography component="span" className="text-xl font-semibold">
+                <Typography component="span" className="text-xl font-semibold  dark:text-white">
                   {section.title}
                 </Typography>
                 <Typography component="span" className="text-sm text-gray-600">
@@ -52,25 +53,29 @@ const CourseSections = ({ courseData }) => {
                 {section.sectionContents?.map((content) => (
                   <div key={content._id} className="flex items-center justify-between py-1">
                     <div className="flex items-center gap-3">
-                      <span className="text-gray-600">
-                        {content.type === 'video' ? '▶' : '📄'}
+                      <span className="text-gray-600 dark:text-white">
+                      ▶
                       </span>
-                      <Typography className="text-base">
+                      <Typography className="text-base  dark:text-white">
                         {content.videoTitle}
                       </Typography>
                     </div>
                     <div className="flex items-center gap-2">
                       {content.videoUrl && (
+                        content.paid === true ? <span>🔒</span> : 
+                        
                         <Button
-                          variant="text"
-                          color="primary"
-                          size="small"
-                          href={content.videoUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        variant="text"
+                        color="primary"
+                        size="small"
+                        
+                        href={content.videoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer  dark:text-white"
                         >
-                          Preview
+                        Preview
                         </Button>
+                       
                       )}
                       <Typography className="text-sm text-gray-600 min-w-[4rem] text-right">
                         {content.duration?.toString().padStart(2, '0')}:{content.durationSeconds?.toString().padStart(2, '0')}
