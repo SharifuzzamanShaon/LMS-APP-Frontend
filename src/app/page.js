@@ -7,7 +7,7 @@ import Header from "@/components/Header";
 import CourseComponent from "@/components/Course/CourseComponent";
 import ForVisitor from "@/utils/ForVisitor";
 import Footer from "@/components/Footer";
-
+import Userreviws from "@/components/Userreviws";
 const page = () => {
   const { user } = useSelector((state) => state.auth);
   const siteTitle = user
@@ -30,6 +30,7 @@ const page = () => {
       <HeroSection />
       <CourseComponent/>
       {!user && <ForVisitor/>}
+      <Userreviws/>
       <Footer/>
     </div>
   );
