@@ -1,14 +1,17 @@
 import React from "react";
 import { Button } from "@mui/material";
 import toast from "react-hot-toast";
-
+import { FaArrowRight } from "react-icons/fa";
 const SpeedLogin = ({ setValues }) => {
   const handleSpeedLogin = () => {
     setValues({
       email: "shasan2200@gmail.com",
       password: "shasan",
     });
-    toast("Here you are 🖐 | Please Click Login")
+    toast("Demo credentials applied ✨ | Click Login to test the system", {
+      icon: '🔑',
+      duration: 3000
+    });
   };
 
   return (
@@ -18,8 +21,10 @@ const SpeedLogin = ({ setValues }) => {
       color="secondary"
       onClick={handleSpeedLogin}
       className="mt-2 ml-4 dark:text-white text-black"
+      title="Speed login to test all features of the system"
     >
-      Speed Login "Quick test"
+      Demo Login
+      <FaArrowRight className="ml-2" />
     </Button>
   );
 };
