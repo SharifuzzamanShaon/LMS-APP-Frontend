@@ -45,7 +45,7 @@ const SocialAuthentication = ({setOpen}) => {
           size={30}
           className="cursor-pointer mt-2"
         />
-        <FaGithub size={30} className="cursor-pointer ml-2 mt-2 text-black" />
+        {/* <FaGithub size={30} className="cursor-pointer ml-2 mt-2 text-black" /> */}
       </div>
     </>
   );
