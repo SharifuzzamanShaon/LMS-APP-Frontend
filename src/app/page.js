@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Head from 'next/head';
 import Heading from "../utils/Heading";
 import HeroSection from "../components/HeroSection";
 import { useSelector } from "react-redux";
@@ -11,7 +12,7 @@ import Userreviws from "@/components/Userreviws";
 const page = () => {
   const { user } = useSelector((state) => state.auth);
   const siteTitle = user
-    ? `${user.username.split("").slice(0, 5).join("") + "..."}`
+    ? `${user.username.split("").slice(0, 5).join("")}`
     : "LMS-App";
 
   const [open, setOpen] = useState(false);
@@ -21,6 +22,9 @@ const page = () => {
 
   return (
     <div className="h-[800px]">
+      <Head>
+        <link rel="icon" href="/image/site-logo.png" />
+      </Head>
       <Heading
         title={`${siteTitle} Profile`}
         description="This is a learning paltform"
