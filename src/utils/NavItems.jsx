@@ -44,7 +44,7 @@ const NavItems = ({ activeItem, isMobile }) => {
           <Link href="/student-lounge" onClick={handleChatClick}>
             <Button
               sx={{
-                backgroundColor: '#37a39a',
+                backgroundColor: '#03bd62',
                 color: 'white',
                 '&:hover': {
                   backgroundColor: '#2c827a',
