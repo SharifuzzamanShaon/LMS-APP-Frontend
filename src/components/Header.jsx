@@ -52,7 +52,7 @@ const Header = ({ open, activeItem, setOpen }) => {
                 href={"/"}
                 className={`text-[20px] font-Poppins font-500 text-black dark:text-white`}
               >
-                Skill-Sage
+                <Image src="/image/site-logo.png" width={100} height={100}  alt="Skill-Sage"/>
               </Link>
               {user?.role === "admin" && (
                 <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-md border border-gray-300 dark:border-gray-700 cursor-pointer" onClick={handleNav}>
