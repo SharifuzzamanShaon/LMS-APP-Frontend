@@ -28,11 +28,11 @@ const AdminLayout = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex pt-[70px]">
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-gray-200 dark:bg-gray-900 rounded-lg"
+        className="md:hidden fixed top-20 left-4 z-40 p-2 bg-gray-200 dark:bg-gray-900 rounded-lg"
       >
         {isMobileMenuOpen ? <RxCross1 /> : <BsArrowsAngleExpand />}
       </button>
@@ -41,7 +41,7 @@ const AdminLayout = ({ children }) => {
       <div
         className={`bg-gray-200 dark:bg-gray-900 p-4 transition-all duration-300 ${
           isCollapsed ? "w-20" : "md:w-64 w-64"
-        } h-screen sticky top-0 ${
+        } h-[calc(100vh-70px)] sticky top-[70px] ${
           isMobileMenuOpen ? "block" : "hidden"
         } md:block`}
       >
@@ -57,7 +57,7 @@ const AdminLayout = ({ children }) => {
           </button>
         </div>
         <div className="flex flex-col mt-6 h-[100%]">
-          <Link href="/admin-dashboard/dashboard">
+          <Link href="/admin-dashboard">
             <span className="flex items-center mb-3 dark:text-white text-black p-2 hover:bg-gray-700 hover:text-white rounded-md transition duration-200">
               <FiHome
                 className={`mr-2 ${isCollapsed ? "text-xl" : "text-2xl"}`}
@@ -116,22 +116,15 @@ const AdminLayout = ({ children }) => {
               {!isCollapsed && <span>Students</span>}
             </span>
           </Link>
-          <Link href="/admin-dashboard/payments">
+          <Link href="/admin-dashboard/revenue">
             <span className="flex items-center mb-3 dark:text-white text-black p-2 hover:bg-gray-700 hover:text-white rounded-md transition duration-200">
               <FiDollarSign
                 className={`mr-2 ${isCollapsed ? "text-xl" : "text-2xl"}`}
               />
-              {!isCollapsed && <span>Payments</span>}
+              {!isCollapsed && <span>Revenue</span>}
             </span>
           </Link>
-          <Link href="/admin-dashboard/orders">
-            <span className="flex items-center mb-3 dark:text-white text-black p-2 hover:bg-gray-700 hover:text-white rounded-md transition duration-200">
-              <FiClipboard
-                className={`mr-2 ${isCollapsed ? "text-xl" : "text-2xl"}`}
-              />
-              {!isCollapsed && <span>Orders</span>}
-            </span>
-          </Link>
+
           <span className="flex items-center mb-3 dark:text-white text-black p-2 hover:bg-gray-700 hover:text-white rounded-md transition duration-200">
             <FiLogOut
               className={`mr-2 ${isCollapsed ? "text-xl" : "text-2xl"}`}
