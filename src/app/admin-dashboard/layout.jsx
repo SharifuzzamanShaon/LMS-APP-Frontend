@@ -7,7 +7,7 @@ import ProtectedAdmin from "@/hooks/adminProtect";
 
 export default function RootLayout({ children }) {
   return (
-    <div className="h-screen ">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-800">
       <ProtectedAdmin>
         <AdminDashboardHeader />
         <AdminSidebar>{children}</AdminSidebar>
