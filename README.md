@@ -1,6 +1,7 @@
 # 🎓 SkillSage - Learning Management System  
 
 SkillSage is a **Next.js-based Learning Management System (LMS)** that allows users to browse courses, enroll, and interact with each other through real-time chat. The platform supports secure authentication, course management, and payments.  
+<img width="1261" alt="Screenshot 2025-02-19 at 12 45 11 PM" src="https://github.com/user-attachments/assets/8fcd121c-c9dd-4491-9480-8927108e05f4" />
 
 ## 🌐 Live Demo  
 🔗 [Browse Existing Project](http://skillsage-6v3g.onrender.com/)  
