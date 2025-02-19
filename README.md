@@ -4,7 +4,8 @@ SkillSage is a **Next.js-based Learning Management System (LMS)** that allows us
 <img width="1261" alt="Screenshot 2025-02-19 at 12 45 11 PM" src="https://github.com/user-attachments/assets/8fcd121c-c9dd-4491-9480-8927108e05f4" />
 
 ## 🌐 Live Demo  
-🔗 [Browse Existing Project](http://skillsage-6v3g.onrender.com/){:target="_blank"}
+🔗 [Browse Existing Project](http://skillsage-6v3g.onrender.com/) _(Right-click and open in a new tab)_
+
 
 ## 🔑 Admin Access  
 - **Email:** shasan2200@gmail.com  
