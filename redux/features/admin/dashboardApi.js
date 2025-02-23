@@ -48,8 +48,14 @@ export const adminDashboardApi = apiSlice.injectEndpoints({
                 credentials: "include",
                 method: "PUT",
             }),
+        }),
+        getCourseById: builder.query({
+            query:({id})=>({
+                url: `/admin/courses/${id}`,
+                credentials: "include",
+                method: "GET",
+            }),
         })
-
     })
 })
-export const {  useGetDashboardInfoQuery, useGetStudentListQuery, useGetCourseListQuery, useEditCourseMutation } = adminDashboardApi;
+export const {  useGetDashboardInfoQuery, useGetStudentListQuery, useGetCourseListQuery, useEditCourseMutation, useGetCourseByIdQuery } = adminDashboardApi;
