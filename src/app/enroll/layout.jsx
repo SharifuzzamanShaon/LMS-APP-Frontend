@@ -1,4 +1,5 @@
 "use client";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { useState } from "react";
 
@@ -9,6 +10,7 @@ export default function RootLayout({ children }) {
     <div className="overflow-hidden height-screen bg-no-repeat dark:bg-gradient-to-b dark:from-gray-900 dark:to-black duration-300">
       <Header open={open} activeItem={activeItem} setOpen={setOpen}></Header>
       {children}
+      <Footer/>
     </div>
   );
 }
