@@ -28,7 +28,7 @@ const AdminLayout = ({ children }) => {
   };
 
   return (
-    <div className="min-h-screen flex pt-[70px]">
+    <div className="min-h-screen flex">
       {/* Mobile Menu Button */}
       <button
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -41,7 +41,7 @@ const AdminLayout = ({ children }) => {
       <div
         className={`bg-gray-200 dark:bg-gray-900 p-4 transition-all duration-300 ${
           isCollapsed ? "w-20" : "md:w-64 w-64"
-        } h-[calc(100vh-70px)] sticky top-[70px] ${
+        } h-[calc(100vh-70px)] sticky top-[01px] ${
           isMobileMenuOpen ? "block" : "hidden"
         } md:block`}
       >
