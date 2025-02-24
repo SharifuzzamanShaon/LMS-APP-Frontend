@@ -41,7 +41,7 @@ const Profile = () => {
         ${scroll ? "top-[120px]" : "top-[30px]"} left-[30px]`}
       >
         {active === 1 && <UserAccount user={user}/>}
-        {active === 2 && <EnrolledCourse />}
+        {active === 2 && <EnrolledCourse user={user}/>}
         {active === 3 && <ChangePassword />}
         {/* {open && <LogoutModule open={open} setOpen={setOpen}/>} */}
 
