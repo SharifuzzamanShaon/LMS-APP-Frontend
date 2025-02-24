@@ -73,19 +73,13 @@ const UserProfileMenu = ({ imgSrc }) => {
             className=" text-black dark:text-white dark:bg-slate-900 hover:bg-white  dark:hover:bg-slate-800"
             onClick={() => handleMenuItemClick("profile")}
           >
-            <p>Profile</p>
+            <p>MY PROFILE</p>
           </MenuItem>
           <MenuItem
             className=" text-black dark:text-white dark:bg-slate-900 hover:bg-white  dark:hover:bg-slate-800"
             onClick={() => handleMenuItemClick("student-lounge")}
           >
-            <p>Chat's</p>
-          </MenuItem>
-          <MenuItem
-            className=" text-black dark:text-white dark:bg-slate-900 hover:bg-white dark:hover:bg-slate-800"
-            onClick={() => handleMenuItemClick("my-account")}
-          >
-            My account
+            <p>CHAT'S</p>
           </MenuItem>
           <MenuItem
             className=" text-black dark:text-white dark:bg-slate-900 hover:bg-white dark:hover:bg-slate-800"
