@@ -51,7 +51,7 @@ const NavItems = ({ activeItem, isMobile }) => {
                 },
               }}
             >
-              CHAT's
+              CHAT ROOM
             </Button>
           </Link>
       </div>
