@@ -14,7 +14,9 @@ const EnrolledCourse = () => {
         withCredentials: true,
       }
     );
-    setCourses(result?.data?.enrolledCourses);
+  console.log(result);
+
+    setCourses(result?.data?.enrollments || []);
   };
   useEffect(() => {
     setLoading(true);
@@ -29,9 +31,9 @@ const EnrolledCourse = () => {
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white-900 dark:border-green-500"></div>
         </div>
       ) : courses?.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 p-5">
           {courses?.map((course) => (
-            <EnrolledCourseCard key={course._id} course={course} />
+            <EnrolledCourseCard key={course._id} course={course.course} />
           ))}
         </div>
       ) : (
