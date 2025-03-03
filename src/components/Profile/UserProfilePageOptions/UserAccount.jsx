@@ -51,7 +51,7 @@ const UserAccount = ({ user }) => {
         withCredentials: true,
       };
       const res = await axios.patch(
-        "http://localhost:5000/api/v1/user/upldate-avatar",
+        "http://localhost:5008/api/v1/user/upldate-avatar",
         { avatar },
         config
       );
