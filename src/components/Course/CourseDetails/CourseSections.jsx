@@ -10,8 +10,6 @@ import { useTheme } from '@mui/material/styles';
 
 const CourseSections = ({ courseData }) => {
   const theme = useTheme();
-  console.log(courseData);
-  
   const getTotalLecturesAndDuration = (section) => {
     const lectureCount = section.sectionContents?.length || 0;
     // Assuming duration is in minutes and stored in each content
