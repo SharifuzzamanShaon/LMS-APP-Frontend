@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import NavItems from "../utils/NavItems";
 import ThemeSwitcher from "../utils/ThemeSwitcher";
 import { HiOutlineMenuAlt3, HiOutlineUserCircle, HiInformationCircle } from "react-icons/hi";
@@ -10,6 +10,7 @@ import Image from "next/image";
 import UserProfileMenu from "./ProfileShortcut/UserProfileMenu";
 import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
+import { RxCross1 } from "react-icons/rx";
 
 const Header = ({ open, activeItem, setOpen }) => {
   const [active, setActive] = useState(false);
@@ -35,6 +36,9 @@ const Header = ({ open, activeItem, setOpen }) => {
   const router = useRouter();
   const handleNav = () => {
     router.push("/admin-dashboard");
+  };
+  const navigateToProfile = () => {
+    router.push("/profile");
   };
   return (
     <div className="w-full relative">
@@ -94,51 +98,67 @@ const Header = ({ open, activeItem, setOpen }) => {
         </div>
         {openSidebar && (
           <div
-            className="fixed w-full h-screen top-0 left-0 z-[99999 dark:bg-[unset] bg-[#00000024]"
-            onClick={handleClose}
-            id="screen"
+      className="fixed inset-0 z-[9999] bg-black bg-opacity-20 dark:bg-opacity-0"
+      onClick={handleClose}
+      id="screen"
+    >
+      <div
+        className="fixed right-0 top-0 h-full w-[70%] z-[10000] bg-white dark:bg-slate-900 dark:bg-opacity-90 shadow-lg"
+        onClick={(e) => e.stopPropagation()} // prevent closing on inner click
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between px-5 pt-5 border-b dark:border-[#ffffff1d] pb-5">
+          <Link
+            href="/"
+            className="text-[20px] font-semibold font-Poppins text-black dark:text-white"
           >
-            <div className="w-[70%] fixed z-[9999999999] h-screen bg-white dark:bg-slate-900 dark:bg-opacity-90 top-0 right-0 mt-4">
-              <div className="flex items-center justify-between px-5 pt-5">
-                <Link
-                  href={"/"}
-                  className={`text-[20px] font-Poppins font-500 text-black dark:text-white`}
-                >
-                  Skill-Sage
-                </Link>
-                <HiOutlineMenuAlt3
-                  size={25}
-                  className="cursor-pointer dark:text-white text-black"
-                  onClick={() => setOpenSidebar(false)}
-                />
-              </div>
-              <NavItems activeItem={activeItem} isMobile={true} />
+            Skill-Sage
+          </Link>
+          <RxCross1
+            size={25}
+            className="cursor-pointer text-black dark:text-white"
+            onClick={() => setOpenSidebar(false)}
+          />
 
+        </div>
+
+        {/* Navigation Items */}
+        <NavItems activeItem={activeItem} isMobile={true} />
+
+        {/* Footer / Theme & User */}
+        <div className="flex items-center justify-between px-5 pt-5">
+          {user ? (
+            <button className="flex items-center gap-2 " onClick={ navigateToProfile}>
+            <Image
+              src={user.avatar}
+              alt="User"
+              width={30}
+              height={30}
+              className="rounded-full object-cover cursor-pointer"
+              />
               <div>
-                {user ? (
-                  <Image
-                    src={user.avatar}
-                    alt=""
-                    width={30}
-                    height={30}
-                    className="object-cover"
-                  />
-                ) : (
-                  <HiOutlineUserCircle
-                    size={25}
-                    className="cursor-pointer ml-5 dark:text-white text-black"
-                    onClick={() => setOpen(true)}
-                  />
-                )}
+                <p className="text-[14px] text-gray-500 dark:text-gray-400">
+                  {user.username}
+                </p>
               </div>
-              <br />
-              <br />
-              <br />
-              <p className="text-[16px] px-2 pl-5 dark:text-white text-black">
-                Copyright 2025{" "}
-              </p>
-            </div>
-          </div>
+              </  button>
+          ) : (
+            <HiOutlineUserCircle
+              size={25}
+              className="cursor-pointer text-black dark:text-white ml-5"
+              onClick={() => setOpen(true)}
+            />
+          )}
+        </div>
+
+        {/* Copyright */}
+        <div className="mt-10 px-5">
+          <p className="text-[16px] text-black dark:text-white">
+            © 2025 Skill-Sage
+          </p>
+        </div>
+      </div>
+    </div>
         )}
       </div>
       <>{open && <CustomModal open={open} setOpen={setOpen}></CustomModal>}</>
