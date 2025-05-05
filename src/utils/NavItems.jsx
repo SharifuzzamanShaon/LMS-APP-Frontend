@@ -63,7 +63,7 @@ const NavItems = ({ activeItem, isMobile }) => {
             <span className={`${
               activeItem === 0
                 ? "dark:text-[#37a39a] text-[crimson]"
-                : "dark:text-white text-black"
+                : "dark:text-white text-black text-gray-500"
             } block py-2 text-[18px] px-6 font-Poppins font-[400]`}>
               Home
             </span>
@@ -72,10 +72,23 @@ const NavItems = ({ activeItem, isMobile }) => {
             <span className={`${
               activeItem === 1
                 ? "dark:text-[#37a39a] text-[crimson]"
-                : "dark:text-white text-black"
+                : "dark:text-white text-black "
             } block py-2 text-[18px] px-6 font-Poppins font-[400]`}>
               Courses
             </span>
+          </Link>
+          <Link href="/student-lounge" onClick={handleChatClick}>
+            <Button
+              sx={{
+                backgroundColor: '#03bd62',
+                color: 'white',
+                '&:hover': {
+                  backgroundColor: '#2c827a',
+                },
+              }}
+            >
+              CHAT ROOM
+            </Button>
           </Link>
         </div>
       )}
