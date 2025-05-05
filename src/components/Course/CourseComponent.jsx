@@ -70,10 +70,10 @@ const CourseComponent = () => {
   return (
     <div className="p-4 bg-gray-100 dark:bg-gray-900 max-w-[1440px] mx-auto px-8 sm:px-12">
       <div className="flex flex-col items-start justify-center py-10">
-        <h1 className="text-2md sm:text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4 leading-tight">
+        <h1 className="text-2md sm:text-3xl md:text-4xl  text-gray-800 dark:text-gray-100 mb-4 leading-tight font-thin">
           From Critical Skills to Technical Topics
         </h1>
-        <p className="text-sm sm:text-xl text-green-600 dark:text-green-400 leading-relaxed">
+        <p className="text-sm sm:text-xl text-green-600 dark:text-green-400 leading-relaxed font-thin">
           SkillSage supports your professional development with expert-led
           courses
         </p>
