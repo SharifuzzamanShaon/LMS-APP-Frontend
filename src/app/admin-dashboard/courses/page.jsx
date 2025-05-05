@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { useGetCourseListQuery } from "../../../../redux/features/admin/dashboardApi";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import EditCourseModal from "@/components/Course/EditCourseModule/EditCourseModal";
+import { useGetCourseListQuery } from "../../../../redux/features/admin/dashboardApi";
 
 const page = () => {
   const [courses, setCourses] = useState([]);
