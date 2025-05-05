@@ -1,20 +1,19 @@
 "use client";
 import "../globals.css";
-import { Poppins } from "next/font/google";
-import { Josefin_Sans } from "next/font/google";
 import ThemeProvider from "../utils/theme-provider";
 import { Providers } from "../Provider";
 import { Toaster } from "react-hot-toast";
 
-const poppins = Poppins({
+import { Outfit, Inter, Geist_Mono } from "next/font/google";
+
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-Poppins",
 });
-const josefin = Josefin_Sans({
+
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-Josefin",
 });
 
 export default function RootLayout({ children }) {
@@ -22,7 +21,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       
       <body
-        className={`${poppins.variable} ${josefin.variable} !bg-gray bg-no-repeat dark:bg-gradient-to-b dark:from-gray-900 dark:to-black duration-300`}
+        className={`${outfit.variable} ${inter.variable}  antialiased !bg-gray bg-no-repeat dark:bg-gradient-to-b dark:from-gray-900 dark:to-black duration-300`}
       >
         <Providers>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
