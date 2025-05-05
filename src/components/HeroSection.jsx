@@ -17,7 +17,7 @@ const HeroSection = () => {
 
         {/* Right Side: Text */}
         <div className="w-full lg:w-1/2 p-6 text-center lg:text-left">
-          <h1 className="text-2sm md:text-3xl font-Josefin text-black dark:text-white">
+          <h1 className="text-2sm md:text-3xl font-Josefin text-black dark:text-white font-mono">
             Find Your Best Course
           </h1>
           <p className="mt-4 text-sm font-Poppins text-gray-700 dark:text-gray-300">
